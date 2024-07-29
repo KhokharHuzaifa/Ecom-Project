@@ -43,6 +43,24 @@
     padding: 0;
     box-sizing: border-box;
   }
+
+  .form-select {
+    outline: none;
+    color: gray;
+  }
+  
+  .form-select:focus {
+    border: 1px solid #ffefb3 !important;
+    box-shadow: none;
+  }
+  
+  .form-select option {
+    color: gray;
+  }
+  
+  .form-select option:checked {
+    background-color: #ffefb3;
+  }
   
   html {
     font-family: sans-serif;
@@ -69,7 +87,6 @@
   [tabindex="-1"]:focus:not(:focus-visible) {
     outline: 0 !important;
   }
-  
   hr {
     box-sizing: content-box;
     height: 0;
