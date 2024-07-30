@@ -10,6 +10,9 @@ connectDB();
 // body parser middleware
 app.use(bodyParser.json())
 
+
+//sdkhfksdk sdfsdk sdfksdhk
+
 // route mouting
 app.use('/',router)
 
