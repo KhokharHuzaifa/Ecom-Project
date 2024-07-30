@@ -1,22 +1,12 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-
+import Breadcrumb from '../Components/Breadcrumb'
 const Detail = () => {
   return (
     <>
 
     {/* <!-- Breadcrumb Start --> */}
-    <div className="container-fluid">
-        <div className="row px-xl-5">
-            <div className="col-12">
-                <nav className="breadcrumb bg-light mb-30">
-                    <Link className="breadcrumb-item text-dark" to={'/'}>Home</Link>
-                    <Link className="breadcrumb-item text-dark" to={'/shop'}>Shop</Link>
-                    <span className="breadcrumb-item active">Shop Detail</span>
-                </nav>
-            </div>
-        </div>
-    </div>
+    <Breadcrumb/>
     {/* <!-- Breadcrumb End --> */}
 
 
@@ -156,9 +146,9 @@ const Detail = () => {
             <div className="col">
                 <div className="bg-light p-30">
                     <div className="nav nav-tabs mb-4">
-                        <Link className="nav-item nav-link text-dark active" data-toggle="tab" to={'#tab-pane-1'}>Description</Link>
-                        <Link className="nav-item nav-link text-dark" data-toggle="tab" to={'#tab-pane-2'}>Information</Link>
-                        <Link className="nav-item nav-link text-dark" data-toggle="tab" to={'#tab-pane-3'}>Reviews (0)</Link>
+                        <a className="nav-item nav-link text-dark active" data-toggle="tab" href='#tab-pane-1'>Description</a>
+                        <a className="nav-item nav-link text-dark" data-toggle="tab" href='#tab-pane-2'>Information</a>
+                        <a className="nav-item nav-link text-dark" data-toggle="tab" href='#tab-pane-3'>Reviews (0)</a>a
                     </div>
                     <div className="tab-content">
                         <div className="tab-pane fade show active" id="tab-pane-1">
@@ -269,7 +259,7 @@ const Detail = () => {
         <h2 className="section-title position-relative text-uppercase mx-xl-5 mb-4"><span className="bg-secondary pr-3">You May Also Like</span></h2>
         <div className="row px-xl-5">
             <div className="col">
-                <div className="owl-carousel related-carousel">
+                <div className="d-flex related-carousel"> 
                     <div className="product-item bg-light">
                         <div className="product-img position-relative overflow-hidden">
                             <img className="img-fluid w-100" src="img/product-1.jpg" alt=""/>
@@ -280,7 +270,7 @@ const Detail = () => {
                                 <Link className="btn btn-outline-dark btn-square" href=""><i className="fa fa-search"></i></Link>
                             </div>
                         </div>
-                        <div className="text-center py-4">
+                        <div className="text-center p-4">
                             <Link className="h6 text-decoration-none text-truncate" href="">Product Name Goes Here</Link>
                             <div className="d-flex align-items-center justify-content-center mt-2">
                                 <h5>$123.00</h5><h6 className="text-muted ml-2"><del>$123.00</del></h6>
@@ -295,7 +285,7 @@ const Detail = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="product-item bg-light">
+                    <div className="product-item bg-light ms-3">
                         <div className="product-img position-relative overflow-hidden">
                             <img className="img-fluid w-100" src="img/product-2.jpg" alt=""/>
                             <div className="product-action">
@@ -305,7 +295,7 @@ const Detail = () => {
                                 <Link className="btn btn-outline-dark btn-square" href=""><i className="fa fa-search"></i></Link>
                             </div>
                         </div>
-                        <div className="text-center py-4">
+                        <div className="text-center p-4">
                             <Link className="h6 text-decoration-none text-truncate" href="">Product Name Goes Here</Link>
                             <div className="d-flex align-items-center justify-content-center mt-2">
                                 <h5>$123.00</h5><h6 className="text-muted ml-2"><del>$123.00</del></h6>
@@ -320,7 +310,7 @@ const Detail = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="product-item bg-light">
+                    <div className="product-item bg-light ms-3">
                         <div className="product-img position-relative overflow-hidden">
                             <img className="img-fluid w-100" src="img/product-3.jpg" alt=""/>
                             <div className="product-action">
@@ -330,7 +320,7 @@ const Detail = () => {
                                 <Link className="btn btn-outline-dark btn-square" href=""><i className="fa fa-search"></i></Link>
                             </div>
                         </div>
-                        <div className="text-center py-4">
+                        <div className="text-center p-4">
                             <Link className="h6 text-decoration-none text-truncate" href="">Product Name Goes Here</Link>
                             <div className="d-flex align-items-center justify-content-center mt-2">
                                 <h5>$123.00</h5><h6 className="text-muted ml-2"><del>$123.00</del></h6>
@@ -345,7 +335,7 @@ const Detail = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="product-item bg-light">
+                    <div className="product-item bg-light ms-3">
                         <div className="product-img position-relative overflow-hidden">
                             <img className="img-fluid w-100" src="img/product-4.jpg" alt=""/>
                             <div className="product-action">
@@ -355,7 +345,7 @@ const Detail = () => {
                                 <Link className="btn btn-outline-dark btn-square" href=""><i className="fa fa-search"></i></Link>
                             </div>
                         </div>
-                        <div className="text-center py-4">
+                        <div className="text-center p-4">
                             <Link className="h6 text-decoration-none text-truncate" href="">Product Name Goes Here</Link>
                             <div className="d-flex align-items-center justify-content-center mt-2">
                                 <h5>$123.00</h5><h6 className="text-muted ml-2"><del>$123.00</del></h6>
@@ -370,7 +360,7 @@ const Detail = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="product-item bg-light">
+                    <div className="product-item bg-light ms-3">
                         <div className="product-img position-relative overflow-hidden">
                             <img className="img-fluid w-100" src="img/product-5.jpg" alt=""/>
                             <div className="product-action">
@@ -380,7 +370,7 @@ const Detail = () => {
                                 <Link className="btn btn-outline-dark btn-square" href=""><i className="fa fa-search"></i></Link>
                             </div>
                         </div>
-                        <div className="text-center py-4">
+                        <div className="text-center p-4">
                             <Link className="h6 text-decoration-none text-truncate" href="">Product Name Goes Here</Link>
                             <div className="d-flex align-items-center justify-content-center mt-2">
                                 <h5>$123.00</h5><h6 className="text-muted ml-2"><del>$123.00</del></h6>
