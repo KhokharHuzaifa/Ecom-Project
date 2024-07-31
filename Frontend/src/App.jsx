@@ -1,17 +1,29 @@
-import React from 'react'
-// import Shop from './pages/Shop'
-import Cart from './pages/Cart'
-import Contact from './pages/Contact'
-import AddNewProduct from './pages/AddNewProduct'
+import './App.css'
+import {
+  createBrowserRouter,
+  createRoutesFromElements,
+  RouterProvider,
+  Route,
+} from "react-router-dom";
+import Checkout from './Pages/Checkout'
+import Detail from './Pages/Detail'
+import Home from './Pages/Home'
+import Outletcomp from './Components/Outletcomp';
+function App() {
 
-const App = () => {
+  const router = createBrowserRouter(
+    createRoutesFromElements(
+      <Route path='/' element={<Outletcomp/>}>
+        <Route path="/" element={<Home/>} />
+        <Route path="/detail" element={<Detail />} />
+        <Route path="/checkout" element={<Checkout />} />
+      </Route>
+    )
+  );
   return (
-    <div>
-      {/* <Shop/> */}
-      {/* <Cart/> */}
-      {/* <Contact/> */}
-      <AddNewProduct/>
-    </div>
+    <>
+    <RouterProvider router={router}></RouterProvider>
+    </>
   )
 }
 
