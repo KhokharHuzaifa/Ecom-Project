@@ -8,15 +8,22 @@ import {
 import Checkout from './Pages/Checkout'
 import Detail from './Pages/Detail'
 import Home from './Pages/Home'
+import Shop from './Pages/Shop'
+import Cart from './Pages/Cart'
+import Contact from './Pages/Contact'
 import Outletcomp from './Components/Outletcomp';
+
 function App() {
 
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route path='/' element={<Outletcomp/>}>
         <Route path="/" element={<Home/>} />
+        <Route path="/shop" element={<Shop/>} />
         <Route path="/detail" element={<Detail />} />
+        <Route path="/cart" element={<Cart />} />
         <Route path="/checkout" element={<Checkout />} />
+        <Route path="/contact" element={<Contact/>} />
       </Route>
     )
   );
