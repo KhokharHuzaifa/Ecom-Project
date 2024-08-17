@@ -1,11 +1,14 @@
 import express from 'express'
-import router from './Routes/routes.product.js'
+import productrouter from './Routes/routes.product.js'
+import authrouter from "./Routes/routes.auth.js"
+import userrouter from "./Routes/routes.user.js"
 import bodyParser from 'body-parser'
 import { connectDB } from './Config/db.js'
-import "dotenv/config"
+import 'dotenv/config'
+import { errorHandler } from './middleware/error.js'
 
-const app = express()
 connectDB();
+const app = express()
 
 // body parser middleware
 app.use(bodyParser.json())
@@ -14,15 +17,15 @@ app.use(bodyParser.json())
 //sdkhfksdk sdfsdk sdfksdhk
 
 // route mouting
-app.use('/',router)
+app.use('/',productrouter)
+
+app.use("/",authrouter)
+
+app.use("/",userrouter)
 
 // global error handler
-app.use((err,req,res,next)=>{
-    res.json({
-        message:err
-    })
-})
+app.use(errorHandler)
 
 app.listen(process.env.PORT,()=>{
-    console.log(`Server is running at port ${process.env.PORT}`);
+    console.log(`Server is running at port 8000`);
 })
