@@ -6,12 +6,14 @@ import bodyParser from 'body-parser'
 import { connectDB } from './Config/db.js'
 import 'dotenv/config'
 import { errorHandler } from './middleware/error.js'
+import cookieParser from 'cookie-parser'
 
 connectDB();
 const app = express()
 
 // body parser middleware
 app.use(bodyParser.json())
+app.use(cookieParser())
 
 
 //sdkhfksdk sdfsdk sdfksdhk
