@@ -12,6 +12,8 @@ import Shop from './Pages/Shop'
 import Cart from './Pages/Cart'
 import Contact from './Pages/Contact'
 import Outletcomp from './Components/Outletcomp';
+import Register from './Pages/Register';
+import Login from './Pages/Login';
 
 function App() {
 
@@ -24,6 +26,8 @@ function App() {
         <Route path="/cart" element={<Cart />} />
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/contact" element={<Contact/>} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login />} />
       </Route>
     )
   );
