@@ -1,3 +1,8 @@
+import React from 'react'
+import Shop from './pages/Shop'
+import Cart from './pages/Cart'
+import Contact from './pages/Contact'
+import AddNewProduct from './pages/AddNewProduct'
 import './App.css'
 import {
   createBrowserRouter,
@@ -8,12 +13,12 @@ import {
 import Checkout from './Pages/Checkout'
 import Detail from './Pages/Detail'
 import Home from './Pages/Home'
-import Shop from './Pages/Shop'
-import Cart from './Pages/Cart'
-import Contact from './Pages/Contact'
+
+
+
 import Outletcomp from './Components/Outletcomp';
 
-function App() {
+const App = () => {
 
   const router = createBrowserRouter(
     createRoutesFromElements(
@@ -34,4 +39,4 @@ function App() {
   )
 }
 
-export default App
+export default App;
