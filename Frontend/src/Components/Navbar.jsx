@@ -17,13 +17,8 @@ const Navbar = () => {
           </div>
           <div className="col-lg-6 text-center text-lg-right">
             <div className="d-inline-flex align-items-center">
-              <div className="btn-group">
-                <button type="button" className="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">My Account</button>
-                <div className="dropdown-menu dropdown-menu-right">
-                  <button className="dropdown-item" type="button">Sign in</button>
-                  <button className="dropdown-item" type="button">Sign up</button>
-                </div>
-              </div>
+            <Link to={'/register'} className='text-dark'><button className="dropdown-item bg-light" type="button">Sign in</button></Link>
+            <Link to={'/login'} className='text-dark'><button className="dropdown-item bg-light" type="button">Login</button></Link>
               <div className="btn-group mx-2">
                 <button type="button" className="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">USD</button>
                 <div className="dropdown-menu dropdown-menu-right">

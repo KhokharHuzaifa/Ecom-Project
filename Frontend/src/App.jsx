@@ -17,6 +17,8 @@ import Home from './Pages/Home'
 
 
 import Outletcomp from './Components/Outletcomp';
+import Register from './Pages/Register';
+import Login from './Pages/Login';
 
 const App = () => {
 
@@ -29,6 +31,8 @@ const App = () => {
         <Route path="/cart" element={<Cart />} />
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/contact" element={<Contact/>} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login />} />
       </Route>
     )
   );
