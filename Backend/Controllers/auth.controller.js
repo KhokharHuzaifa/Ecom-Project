@@ -1,16 +1,14 @@
-import userModel from "../Model/user.model.js"
+import { userModel } from '../Model/user.model.js'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 
 export const signup = async (req,res,next)=>{
     try {
         const user = req.body
-
        user.password = await bcrypt.hash(user.password, 10)
-
         await userModel.create(user)
-
         res.json({
+            success:true,
             message:"SignUp successfully"
         })
     } catch (error) {
