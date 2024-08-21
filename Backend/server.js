@@ -7,27 +7,29 @@ import { connectDB } from './Config/db.js'
 import 'dotenv/config'
 import { errorHandler } from './middleware/error.js'
 import cookieParser from 'cookie-parser'
+import cors from 'cors'
 
 connectDB();
 const app = express()
 
-// body parser middleware
+// cors config
+var corsOptions = {
+    origin: 'http://localhost:5173/',
+}
+app.use(cors())
+
+// parsers middleware
 app.use(bodyParser.json())
 app.use(cookieParser())
 
-
-//sdkhfksdk sdfsdk sdfksdhk
-
 // route mouting
 app.use('/',productrouter)
-
 app.use("/",authrouter)
-
 app.use("/",userrouter)
 
 // global error handler
 app.use(errorHandler)
 
 app.listen(process.env.PORT,()=>{
-    console.log(`Server is running at port 8000`);
+    console.log(`Server is running at port ${process.env.PORT}`);
 })
