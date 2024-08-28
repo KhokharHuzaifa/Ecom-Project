@@ -1,8 +1,7 @@
 import React from 'react'
-import Shop from './pages/Shop'
-import Cart from './pages/Cart'
-import Contact from './pages/Contact'
-import AddNewProduct from './pages/AddNewProduct'
+import Shop from './Pages/Shop'
+import Cart from './Pages/Cart'
+import Contact from './Pages/Contact'
 import './App.css'
 import {
   createBrowserRouter,

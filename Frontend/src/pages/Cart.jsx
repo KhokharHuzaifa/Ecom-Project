@@ -1,5 +1,5 @@
 import React from "react";
-import Checkout from "../components/Checkout";
+import Checkout from "./Checkout";
 import CartProducts from "../components/CartProducts";
 
 const Cart = () => {
