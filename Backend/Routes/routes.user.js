@@ -8,7 +8,7 @@ const user = new userController();
 router.route("/user/all").get(user.getAllusers)
 router.route("/user/userid").get(user.getSingleuser)
 router.route("/user/newuser").post(user.createUser)
-router.route("/user/deleteuser/:id").delete(user.deleteUser)
-router.route("/user/updateuser/:id").put(user.updateUser)
+router.route("/user/delete").delete(user.deleteUser)
+router.route("/user/update").put(user.updateUser)
 
 export default router

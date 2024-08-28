@@ -1,6 +1,4 @@
 export const errorHandler = (err,req,res,next)=>{
-    // res.json(err)
-    // console.log("Error occured");
 
     let error = {...err}
     error.message = err.message
@@ -20,9 +18,8 @@ export const errorHandler = (err,req,res,next)=>{
         error = new Error(message)
     }
 
-
-
     res.json({
-        error: error.message,
+        message: error.message,
+        success:false
     })
 }

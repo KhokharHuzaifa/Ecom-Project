@@ -8,9 +8,17 @@ import 'dotenv/config'
 import { errorHandler } from './middleware/error.js'
 import cookieParser from 'cookie-parser'
 import cors from 'cors'
+import { v2 as cloudinary } from 'cloudinary';
 
 connectDB();
 const app = express()
+
+// cloudinary setup 
+cloudinary.config({ 
+    cloud_name: process.env.CLOUD_NAME, 
+    api_key: process.env.API_KEY, 
+    api_secret: process.env.API_SECRET
+});
 
 // cors config
 var corsOptions = {
