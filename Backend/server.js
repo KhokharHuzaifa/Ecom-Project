@@ -9,6 +9,7 @@ import { errorHandler } from './middleware/error.js'
 import cookieParser from 'cookie-parser'
 import cors from 'cors'
 import { v2 as cloudinary } from 'cloudinary';
+import 'dotenv/config'
 
 connectDB();
 const app = express()
@@ -21,10 +22,11 @@ cloudinary.config({
 });
 
 // cors config
-var corsOptions = {
-    origin: 'http://localhost:5173/',
+const corsOptions = {
+    origin: 'http://localhost:5173',
+    credentials: true 
 }
-app.use(cors())
+app.use(cors(corsOptions))
 
 // parsers middleware
 app.use(bodyParser.json())

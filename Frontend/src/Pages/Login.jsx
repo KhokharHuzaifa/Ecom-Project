@@ -1,15 +1,22 @@
 import React from 'react'
 import { useFormik } from 'formik';
 import { Link } from 'react-router-dom'
+import { useLoginMutation } from '../redux/Api/authApi';
+import { useNavigate } from 'react-router-dom';
 const Login = () => {
+
+  const [login,{isLoading}] = useLoginMutation()
+
+  const navigate = useNavigate()
 
   const { handleChange, handleSubmit, values ,handleBlur} = useFormik({
     initialValues: {
      email:'',
      password:'',
     },
-    onSubmit: (values) => {
-      console.log(values);
+    onSubmit: async (values) => {
+    await login(values)
+     navigate('/')
     },
   });
 

@@ -2,6 +2,7 @@ import { userModel } from '../Model/user.model.js'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import { v2 as cloudinary } from 'cloudinary';
+import 'dotenv/config'
 
 export const signup = async (req, res, next) => {
     try {
@@ -28,9 +29,9 @@ export const login = async (req, res, next) => {
     try {
         const user = req.body
 
-        const validUser = await userModel.findOne({ username: user.username })
+        const validUser = await userModel.findOne({ email: user.email })
 
-        if (validUser == null) return next(new Error("Not Valid UserName"))
+        if (validUser == null) return next(new Error("Not Valid Email"))
 
         const decodeUser = await bcrypt.compare(user.password, validUser.password)
 
@@ -45,7 +46,8 @@ export const login = async (req, res, next) => {
         try {
             res.cookie("JWT", jwt_token, { maxAge: 900000, httpOnly: true }).json({
                 message: "LogIn successfully",
-                jwt_token
+                validUser,
+                success:true
             })
         } catch (error) {
             next(error)
@@ -57,5 +59,11 @@ export const login = async (req, res, next) => {
 }
 
 export const logout = async (req, res, next) => {
-
+    try {
+        res.cookie("JWT", '').json({
+            message: "Logout successfully",
+        })
+    } catch (error) {
+     next(error)   
+    }
 }
