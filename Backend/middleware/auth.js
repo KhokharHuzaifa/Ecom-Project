@@ -1,4 +1,5 @@
 import jwt from "jsonwebtoken";
+import 'dotenv/config'
 
 export const isAuthenticated = (req, res, next) => {
   const { JWT } = req.cookies;

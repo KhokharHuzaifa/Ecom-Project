@@ -20,6 +20,6 @@ export const errorHandler = (err,req,res,next)=>{
 
     res.json({
         message: error.message,
-        success:false
+        success:false,
     })
 }

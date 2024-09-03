@@ -64,4 +64,18 @@ export class userController {
         next(error)
     }
    }
+
+   getMe = async (req,res,next) => {
+    try {
+        const id = req.user.id
+        const user = await userModel.findById(id)
+        res.json({
+            success: true,
+            user
+        })
+    } catch (error) {
+        next(error)
+    }
+   }
 }  
+

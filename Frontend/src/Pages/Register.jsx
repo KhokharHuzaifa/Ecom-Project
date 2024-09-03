@@ -21,6 +21,8 @@ const Register = () => {
     },
     onSubmit: async (values) => {
       const res = await register(values).unwrap()
+      console.log(res);
+      
       setApiMsg(res)
     },
   });

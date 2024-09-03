@@ -4,17 +4,17 @@ const {actions, reducer} = createSlice({
   name: 'auth',
   initialState:{
     user:null,
-    tk:null
+    isAuthenticated:false
   },
   reducers: {
-    login(state,action){
-        state.user = action.payload.user
+    setUserInfo(state,action){
+        state.user = action.payload
     },
-    registerUser(state,action){
-        state.user = action.payload.user
+    setIsAuthenticated(state,action){
+        state.isAuthenticated = action.payload
     }
   },
 })
 
-export const { login , registerUser } = actions
+export const { setUserInfo , setIsAuthenticated} = actions
 export default reducer

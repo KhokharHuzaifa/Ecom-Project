@@ -1,6 +1,21 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import { useGetMeQuery } from '../redux/Api/authApi'
+import { useLazyLogoutQuery } from '../redux/Api/authApi'
 const Navbar = () => {
+
+  const { isLoading } = useGetMeQuery()
+
+  const [logout] = useLazyLogoutQuery()
+  
+
+  const {isAuthenticated, user} = useSelector(state=>state.auth)
+
+  const handleLogout = async () => {
+   await logout();
+  }
+  
   return (
     <>
 
@@ -17,8 +32,14 @@ const Navbar = () => {
           </div>
           <div className="col-lg-6 text-center text-lg-right">
             <div className="d-inline-flex align-items-center">
-            <Link to={'/register'} className='text-dark'><button className="dropdown-item bg-light" type="button">Sign in</button></Link>
-            <Link to={'/login'} className='text-dark'><button className="dropdown-item bg-light" type="button">Login</button></Link>
+           {
+            isAuthenticated && user ? <>
+            <p>{user?.user?.username}</p> <button className='btn btn-light' onClick={handleLogout}>logout</button>
+            </>:<>
+             <Link to={'/register'} className='text-dark'><button className="dropdown-item bg-light" type="button">Sign in</button></Link>
+             <Link to={'/login'} className='text-dark'><button className="dropdown-item bg-light" type="button">Login</button></Link>
+            </>
+           }
               <div className="btn-group mx-2">
                 <button type="button" className="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">USD</button>
                 <div className="dropdown-menu dropdown-menu-right">
