@@ -1,6 +1,6 @@
 import React from "react";
 import Checkout from "./Checkout";
-import CartProducts from "../components/CartProducts";
+import CartProducts from '../Components/CartProducts';
 
 const Cart = () => {
   return (

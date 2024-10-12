@@ -34,28 +34,19 @@ const Navbar = () => {
             <div className="d-inline-flex align-items-center">
            {
             isAuthenticated && user ? <>
-            <p>{user?.user?.username}</p> <button className='btn btn-light' onClick={handleLogout}>logout</button>
+            <div className="btn-group">
+              <button className=' btn dropdown-toggle' style={{border:'none', outline:'none'}} data-toggle="dropdown"> <img src={user?.user?.avatar} width={20}/> <b>Welcome!</b> {user?.user?.username}</button>
+                <div className="dropdown-menu dropdown-menu-right">
+                <button className="dropdown-item" >Profile</button>
+                  <button className="dropdown-item" >Dashboard</button>
+                  <button type="button" className='btn btn-light dropdown-item' onClick={handleLogout}>logout</button>
+                </div>
+              </div>
             </>:<>
-             <Link to={'/register'} className='text-dark'><button className="dropdown-item bg-light" type="button">Sign in</button></Link>
+             <Link to={'/register'} className='text-dark'><button className="dropdown-item bg-light" type="button">Sign up</button></Link>
              <Link to={'/login'} className='text-dark'><button className="dropdown-item bg-light" type="button">Login</button></Link>
             </>
            }
-              <div className="btn-group mx-2">
-                <button type="button" className="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">USD</button>
-                <div className="dropdown-menu dropdown-menu-right">
-                  <button className="dropdown-item" type="button">EUR</button>
-                  <button className="dropdown-item" type="button">GBP</button>
-                  <button className="dropdown-item" type="button">CAD</button>
-                </div>
-              </div>
-              <div className="btn-group">
-                <button type="button" className="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">EN</button>
-                <div className="dropdown-menu dropdown-menu-right">
-                  <button className="dropdown-item" type="button">FR</button>
-                  <button className="dropdown-item" type="button">AR</button>
-                  <button className="dropdown-item" type="button">RU</button>
-                </div>
-              </div>
             </div>
             <div className="d-inline-flex align-items-center d-block d-lg-none">
               <Link href="" className="btn px-0 ml-2">

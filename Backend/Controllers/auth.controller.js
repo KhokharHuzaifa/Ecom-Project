@@ -26,7 +26,7 @@ export const signup = async (req, res, next) => {
 }
 
 export const login = async (req, res, next) => {
-    try {
+    try {        
         const user = req.body
 
         const validUser = await userModel.findOne({ email: user.email })
@@ -45,7 +45,7 @@ export const login = async (req, res, next) => {
 
         try {
             res.cookie("JWT", jwt_token, { maxAge: 900000, httpOnly: true }).json({
-                message: "LogIn successfully",
+                message: "LogIn successfully Redirecting you please wait",
                 validUser,
                 success:true
             })
