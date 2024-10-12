@@ -29,7 +29,7 @@ const corsOptions = {
 app.use(cors(corsOptions))
 
 // parsers middleware
-app.use(bodyParser.json())
+app.use(bodyParser.json({limit:'50mb'}))
 app.use(cookieParser())
 
 // route mouting
