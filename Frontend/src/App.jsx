@@ -1,7 +1,7 @@
 import React from 'react'
-import Shop from './Pages/Shop'
-import Cart from './Pages/Cart'
-import Contact from './Pages/Contact'
+import Shop from './pages/Shop'
+import Cart from './pages/Cart'
+import Contact from './pages/Contact'
 import './App.css'
 import {
   createBrowserRouter,
@@ -9,15 +9,13 @@ import {
   RouterProvider,
   Route,
 } from "react-router-dom";
-import Checkout from './Pages/Checkout'
-import Detail from './Pages/Detail'
-import Home from './Pages/Home'
+import Checkout from './pages/Checkout'
+import Detail from './pages/Detail'
+import Home from './pages/Home'
 
-
-
-import Outletcomp from './Components/Outletcomp';
-import Register from './Pages/Register';
-import Login from './Pages/Login';
+import Outletcomp from './components/Outletcomp'
+import Register from './pages/Register'
+import Login from './pages/Login'
 
 const App = () => {
 

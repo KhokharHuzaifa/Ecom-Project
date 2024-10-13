@@ -3,6 +3,7 @@ import 'dotenv/config'
 
 export const isAuthenticated = (req, res, next) => {
   const { JWT } = req.cookies;
+  
   if (!JWT) return next(new Error("LogIn to access this resource"));
 
   try {

@@ -35,13 +35,13 @@ export const login = async (req, res, next) => {
 
         const decodeUser = await bcrypt.compare(user.password, validUser.password)
 
-        if (!decodeUser) return next(new Error("Incorrect Password"))
+        if (!decodeUser) return next(new Error("Incorrect Password"))            
 
         const jwt_token = jwt.sign({
             id: validUser._id,
             username: validUser.username,
             role: validUser.roles
-        }, process.env.JWT_SECRET)
+        }, process.env.JWT_SECRET)        
 
         try {
             res.cookie("JWT", jwt_token, { maxAge: 900000, httpOnly: true }).json({

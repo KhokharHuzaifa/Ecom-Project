@@ -1,7 +1,6 @@
 import React from "react";
-import SideBar from '../Components/SideBar'
-import ShopProducts from '../Components/ShopProducts'
-
+import ShopProducts from '../components/ShopProducts'
+import SideBar from '../components/SideBar'
 const Shop = () => {
   return (
     <>

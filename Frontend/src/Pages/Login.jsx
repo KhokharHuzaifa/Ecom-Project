@@ -7,7 +7,6 @@ import * as Yup from 'yup';
 
 const Login = () => {
 
-  window.scrollTo(0, 0);
   const [login, { isLoading }] = useLoginMutation()
   const navigate = useNavigate()
   const [apiMsg, setApiMsg] = useState(false)

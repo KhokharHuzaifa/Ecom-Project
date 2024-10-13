@@ -6,7 +6,7 @@ const router = express.Router()
 
 const product = new productsController()
 
-router.route('/product/all').get(isAuthenticated,isAuthorized('admin'),product.getAllProducts)
+router.route('/product/all').get(product.getAllProducts)
 router.route('/product/id').get(product.getSingleProduct)
 router.route('/product/new').post(product.createProduct)
 router.route('/product/update').put(product.updateProduct)

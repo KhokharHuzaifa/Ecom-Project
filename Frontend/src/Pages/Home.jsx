@@ -1,6 +1,6 @@
 import React from 'react'
-import Carousel from '../Components/Carousel'
-import Vendor from '../Components/Vendor'
+import Carousel from '../components/Carousel'
+import Vendor from '../components/Vendor'
 const Home = () => {
   return (
     <>

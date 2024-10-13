@@ -6,7 +6,6 @@ import * as Yup from 'yup';
 
 const Register = () => {
 
-  window.scrollTo(0, 0);
   const [register, { isLoading, error, data }] = useRegisterMutation()
   const [apiMsg, setApiMsg] = useState(false)
   
@@ -25,11 +24,16 @@ const Register = () => {
       lastname: Yup.string().matches(/^[A-Za-z ]*$/, 'Please enter valid last name').min(5, 'Minimum 5 letters').max(25, 'Maximum 25 letters').required('Last Name is required').trim(),
       username: Yup.string().matches(/^[a-zA-Z0-9]+([._]?[a-zA-Z0-9]+)*$/, 'Please enter valid User name').min(5, 'Minimum 5 letters').max(25, 'Maximum 25 letters').required('User Name is required').trim(),
       email: Yup.string().matches(/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/, 'Please enter a valid email').required('Email is required').trim(),
-      password: Yup.string().matches(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/, 'Minimum eight characters, at least one letter, one number and one special character').required('Password is required').trim(),
+      password: Yup.string().required('Password is required').trim(),
+      // password: Yup.string().matches(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/, 'Minimum eight characters, at least one letter, one number and one special character').required('Password is required').trim(),
       phoneNumber: Yup.string().matches(/^((\+92)?(0092)?(92)?(0)?)(3)([0-9]{9})$/, 'Phone number not match 03xxxxxxxxx or +92xxxxxxxxxx').required('Phone number is required').trim(),
   }),
     onSubmit: async (values) => {
+      console.log("User...",values);
+      
       const res = await register(values).unwrap()
+      console.log("response.............",res);
+      
       setApiMsg(res)
     },
   });

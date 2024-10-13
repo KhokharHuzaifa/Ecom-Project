@@ -11,7 +11,7 @@ const {actions, reducer} = createSlice({
         state.user = action.payload
     },
     setIsAuthenticated(state,action){
-        state.isAuthenticated = action.payload
+        state.isAuthenticated = true
     }
   },
 })

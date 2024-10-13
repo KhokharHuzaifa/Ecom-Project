@@ -1,11 +1,15 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { useGetMeQuery } from '../redux/Api/authApi'
 import { useLazyLogoutQuery } from '../redux/Api/authApi'
+import { useNavigate } from 'react-router-dom';
+
 const Navbar = () => {
 
-  const { isLoading } = useGetMeQuery()
+  const { data,isLoading } = useGetMeQuery()
+  console.log("DATA.........",data);
+  const navigate = useNavigate()
 
   const [logout] = useLazyLogoutQuery()
   
