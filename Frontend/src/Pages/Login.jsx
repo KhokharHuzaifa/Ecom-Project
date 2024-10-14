@@ -1,15 +1,20 @@
 import React, { useState } from 'react'
 import { useFormik } from 'formik';
-import { Link } from 'react-router-dom'
+import { Link, Navigate } from 'react-router-dom'
 import { useLoginMutation } from '../redux/Api/authApi';
 import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
+import { useSelector } from 'react-redux';
 
 const Login = () => {
-
+  const {isAuthenticated} = useSelector((v)=>v.auth)
   const [login, { isLoading }] = useLoginMutation()
   const navigate = useNavigate()
   const [apiMsg, setApiMsg] = useState(false)
+
+if(isAuthenticated){
+  return <Navigate to={"/"}/>
+}
 
   const { handleChange, handleSubmit, values, handleBlur, touched, errors } = useFormik({
     initialValues: {

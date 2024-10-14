@@ -1,13 +1,18 @@
 import { useFormik } from 'formik';
 import { useRegisterMutation } from '../redux/Api/authApi';
-import { Link } from 'react-router-dom'
+import { Link, Navigate } from 'react-router-dom'
 import { useState } from 'react';
 import * as Yup from 'yup';
+import { useSelector } from 'react-redux';
 
 const Register = () => {
-
+  const {isAuthenticated} = useSelector((v)=>v.auth)
   const [register, { isLoading, error, data }] = useRegisterMutation()
   const [apiMsg, setApiMsg] = useState(false)
+
+  if(isAuthenticated){
+    return <Navigate to={"/"}/>
+  }
   
   const { handleChange, handleSubmit, values, handleBlur, setFieldValue, touched, errors } = useFormik({
     initialValues: {

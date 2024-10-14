@@ -16,20 +16,35 @@ import Home from './pages/Home'
 import Outletcomp from './components/Outletcomp'
 import Register from './pages/Register'
 import Login from './pages/Login'
+import Admin from './Layout/Admin'
+import Customer from './Layout/Customer'
+import { useSelector } from 'react-redux'
 
 const App = () => {
-
+  const {isAuthenticated} = useSelector((v)=>v.auth)
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route path='/' element={<Outletcomp/>}>
         <Route path="/" element={<Home/>} />
         <Route path="/shop" element={<Shop/>} />
         <Route path="/detail" element={<Detail />} />
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/checkout" element={<Checkout />} />
         <Route path="/contact" element={<Contact/>} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={isAuthenticated ? null : <Register />} />
+        <Route path="/login" element={isAuthenticated ? null : <Login />} />
+
+      {/* Admin Routes */}
+
+          <Route path='/admin' element={<Admin role='admin'/>}>
+
+          </Route>
+
+      {/* Customer Routes */}
+
+          <Route path='/customer' element={<Customer role='customer'/>}>
+            <Route path="/customer/checkout" element={<Checkout />} />
+            <Route path="/customer/cart" element={<Cart />} />
+          </Route>
+
       </Route>
     )
   );

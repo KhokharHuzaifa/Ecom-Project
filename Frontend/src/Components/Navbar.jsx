@@ -8,8 +8,8 @@ import { useNavigate } from 'react-router-dom';
 const Navbar = () => {
 
   const { data,isLoading } = useGetMeQuery()
-  console.log("DATA.........",data);
   const navigate = useNavigate()
+
 
   const [logout] = useLazyLogoutQuery()
   
@@ -136,16 +136,22 @@ const Navbar = () => {
                   <Link to={'/'} className="nav-item nav-link">Home</Link>
                   <Link to={'/shop'} className="nav-item nav-link">Shop</Link>
                   <Link to={'/detail'} className="nav-item nav-link">Shop Detail</Link>
-                  <div className="nav-item dropdown">
-                    <Link className="nav-link dropdown-toggle" data-toggle="dropdown">Pages <i className="fa fa-angle-down mt-1"></i></Link>
-                    <div className="dropdown-menu bg-primary rounded-0 border-0 m-0">
-                      <Link to={'/cart'} className="dropdown-item">Shopping Cart</Link>
-                      <Link to={'/checkout'} className="dropdown-item">Checkout</Link>
-                    </div>
-                  </div>
+                  
+                    {
+                      isAuthenticated ? 
+                      <>
+                      <Link to={'/customer/cart'} className="nav-item nav-link">Shopping Cart</Link>
+                      <Link to={'/customer/checkout'} className="nav-item nav-link">Checkout</Link>
+                   
+                      </> : null
+                    }
+                      
+                  
                   <Link to={'/contact'} className="nav-item nav-link">Contact</Link>
                 </div>
-                <div className="navbar-nav ml-auto py-0 d-none d-lg-block">
+                {
+                  isAuthenticated ? <>
+                  <div className="navbar-nav ml-auto py-0 d-none d-lg-block">
                   <Link href="" className="btn px-0">
                     <i className="fas fa-heart text-primary"></i>
                     <span className="badge text-secondary border border-secondary rounded-circle" style={{ paddingBottom: "2px" }}>0</span>
@@ -155,6 +161,9 @@ const Navbar = () => {
                     <span className="badge text-secondary border border-secondary rounded-circle" style={{ paddingBottom: "2px" }}>0</span>
                   </Link>
                 </div>
+                </> : null
+                }
+                
               </div>
             </nav>
           </div>
