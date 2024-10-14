@@ -138,7 +138,7 @@ const Navbar = () => {
                   <Link to={'/detail'} className="nav-item nav-link">Shop Detail</Link>
                   
                     {
-                      isAuthenticated ? 
+                      isAuthenticated && data?.user?.roles === 'customer' || 'admin' ? 
                       <>
                       <Link to={'/customer/cart'} className="nav-item nav-link">Shopping Cart</Link>
                       <Link to={'/customer/checkout'} className="nav-item nav-link">Checkout</Link>
@@ -148,6 +148,10 @@ const Navbar = () => {
                       
                   
                   <Link to={'/contact'} className="nav-item nav-link">Contact</Link>
+                  {
+                    isAuthenticated && data?.user?.roles === 'admin' ? <><Link to={'/admin/addProduct'} className="nav-item nav-link" >AddNewProduct</Link></> : null
+                  }
+                  
                 </div>
                 {
                   isAuthenticated ? <>
