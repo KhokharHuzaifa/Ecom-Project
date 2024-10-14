@@ -149,7 +149,11 @@ const Navbar = () => {
                   
                   <Link to={'/contact'} className="nav-item nav-link">Contact</Link>
                   {
-                    isAuthenticated && data?.user?.roles === 'admin' ? <><Link to={'/admin/addProduct'} className="nav-item nav-link" >AddNewProduct</Link></> : null
+                    isAuthenticated && data?.user?.roles === 'admin' ? 
+                    <>
+                    <Link to={'/admin/addProduct'} className="nav-item nav-link" >AddProduct</Link>
+                    <Link to={'/admin/addcategory'} className="nav-item nav-link" >AddCategory</Link>
+                    </> : null
                   }
                   
                 </div>

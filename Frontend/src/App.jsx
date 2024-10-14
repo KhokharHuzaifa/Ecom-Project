@@ -20,6 +20,7 @@ import Admin from './Layout/Admin'
 import Customer from './Layout/Customer'
 import { useSelector } from 'react-redux'
 import AddNewProduct from './pages/AddNewProduct'
+import AddCategory from './pages/AddCategory'
 
 const App = () => {
   const {isAuthenticated} = useSelector((v)=>v.auth)
@@ -37,6 +38,7 @@ const App = () => {
 
           <Route path='/admin' element={<Admin role='admin'/>}>
             <Route path='/admin/addProduct' element={<AddNewProduct/>}/>
+            <Route path='/admin/addcategory' element={<AddCategory/>}/>
           </Route>
 
       {/* Customer Routes */}

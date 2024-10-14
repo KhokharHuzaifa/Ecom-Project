@@ -2,6 +2,7 @@ import express from 'express'
 import productrouter from './Routes/routes.product.js'
 import authrouter from "./Routes/routes.auth.js"
 import userrouter from "./Routes/routes.user.js"
+import categoryrouter from "./Routes/routes.category.js"
 import bodyParser from 'body-parser'
 import { connectDB } from './Config/db.js'
 import 'dotenv/config'
@@ -36,6 +37,7 @@ app.use(cookieParser())
 app.use('/',productrouter)
 app.use("/",authrouter)
 app.use("/",userrouter)
+app.use("/",categoryrouter)
 
 // global error handler
 app.use(errorHandler)
