@@ -1,6 +1,10 @@
 import mongoose from 'mongoose'
 
 export const connectDB = async () => {
-   await mongoose.connect('mongodb://127.0.0.1:27017/finalProject');
-   console.log('Db is connected');
+  try {
+    await mongoose.connect('mongodb+srv://zainabrd93:DzainB5@ecommerce-final-project.v68ca.mongodb.net/')
+    console.log('DB connection established')
+  } catch (error) {
+    console.error('Error connecting to DB:', error.message)
+  }
 }

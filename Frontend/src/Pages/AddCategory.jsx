@@ -11,10 +11,13 @@ const AddCategory = () => {
     initialValues: {
       categoryName: '',
       categoryImg: '',
+      categoryDescription: '',
     },
     validationSchema: yup.object({
       categoryName: yup.string().required("Category name is required"),
       categoryImg: yup.string().required("Category image is required"),
+      categoryDescription: yup.string().required("Description is required"),
+
     }),
     onSubmit: async (values, { setSubmitting }) => {  
       const data = await createCategory(values)
@@ -75,6 +78,21 @@ const AddCategory = () => {
                 ) : (
                   ""
                 )}
+              </div>
+              <div className="control-group">
+                <textarea
+                  className="form-control"
+                  rows="4"
+                  id="message"
+                  placeholder="Description"
+                  name="categoryDescription"
+                  value={formik.values.categoryDescription}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                ></textarea>
+                {formik.touched.categoryDescription && formik.errors.categoryDescription ? (
+                  <p className=" text-danger">{formik.errors.categoryDescription}</p>
+                ) : null}
               </div>
               <div className="control-group mt-4">
                 <input
