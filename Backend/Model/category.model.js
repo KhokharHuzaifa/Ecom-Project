@@ -2,9 +2,17 @@ import mongoose from 'mongoose';
 const { Schema } = mongoose;
 
 const categorySchema = new Schema({
-    categoryName: String,
+    categoryName: {
+        type:String,
+        unique:true
+    },
     categoryImg : String,
-    categoryDescription: String
+    products:[
+        {
+            type:Schema.Types.ObjectId,
+            ref:'product'
+        }
+    ]
 });
 
 export const categoryModel = mongoose.model('category', categorySchema);

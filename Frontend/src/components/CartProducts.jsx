@@ -4,7 +4,7 @@ const CartProducts = () => {
   return (
     <>
        
-        <div className="col-lg-8 table-responsive mb-5">
+        <div className="col-lg-12 table-responsive mb-5">
                 <table className="table table-light table-borderless table-hover text-center mb-0">
                     <thead className="thead-dark">
                         <tr>

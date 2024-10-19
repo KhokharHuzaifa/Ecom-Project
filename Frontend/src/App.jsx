@@ -31,8 +31,8 @@ const App = () => {
         <Route path="/shop" element={<Shop/>} />
         <Route path="/detail" element={<Detail />} />
         <Route path="/contact" element={<Contact/>} />
-        <Route path="/register" element={isAuthenticated ? null : <Register />} />
-        <Route path="/login" element={isAuthenticated ? null : <Login />} />
+        <Route path="/register" element={isAuthenticated ? <Home/> : <Register />} />
+        <Route path="/login" element={isAuthenticated ? <Home/> : <Login />} />
 
       {/* Admin Routes */}
 

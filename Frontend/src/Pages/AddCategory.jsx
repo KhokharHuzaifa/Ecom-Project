@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import {useCreateCategoryMutation} from '../redux/Api/categoryApi'
+import Breadcrumb from "../components/Breadcrumb";
 
 const AddCategory = () => {
 
@@ -11,12 +12,10 @@ const AddCategory = () => {
     initialValues: {
       categoryName: '',
       categoryImg: '',
-      categoryDescription: '',
     },
     validationSchema: yup.object({
       categoryName: yup.string().required("Category name is required"),
       categoryImg: yup.string().required("Category image is required"),
-      categoryDescription: yup.string().required("Description is required"),
 
     }),
     onSubmit: async (values, { setSubmitting }) => {  
@@ -40,24 +39,20 @@ const AddCategory = () => {
     read.readAsDataURL(e.target.files[0]);
   };
 
+  const breadcrumbItems = [
+    { label: 'Home', path: '/' },
+    { label: 'DashBoard', path: '/admin' },
+    { label: 'Admin', path: '/admin' },
+    { label: 'Add Category', path: '/shop/add-category' },
+  ];
+
   return (
     <>
       {/* Breadcrums */}
-      <div className="container-fluid">
-        <div className="row px-xl-5">
-          <div className="col-12">
-            <nav className="breadcrumb bg-light mb-30">
-              <a className="breadcrumb-item text-dark" href="#">
-                Home
-              </a>
-              <span className="breadcrumb-item active">AddNewCategory</span>
-            </nav>
-          </div>
-        </div>
-      </div>
 
+      {/* <Breadcrumb items={breadcrumbItems}/> */}
       <div className="container-fluid">
-        <div className="col-lg-8 mb-5 px-xl-5">
+        <div className="col-lg-12 mb-5 px-xl-5">
           <div className="contact-form bg-light p-30">
             <h1 style={{ marginBottom: "20px" }}>Add New Category</h1>
             <div id="success"></div>
@@ -79,21 +74,7 @@ const AddCategory = () => {
                   ""
                 )}
               </div>
-              <div className="control-group">
-                <textarea
-                  className="form-control"
-                  rows="4"
-                  id="message"
-                  placeholder="Description"
-                  name="categoryDescription"
-                  value={formik.values.categoryDescription}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                ></textarea>
-                {formik.touched.categoryDescription && formik.errors.categoryDescription ? (
-                  <p className=" text-danger">{formik.errors.categoryDescription}</p>
-                ) : null}
-              </div>
+              
               <div className="control-group mt-4">
                 <input
                   type="file"

@@ -6,11 +6,14 @@ import 'dotenv/config'
 
 export const signup = async (req, res, next) => {
     try {
+        console.log("inside signup1");
+        
         const user = req.body
         const uploadResult = await cloudinary.uploader.upload(user.avatar, { folder: 'MernCart_Project' })
-            .catch((error) => {
-                next(error)
-            });
+        .catch((error) => {
+            next(error)
+        });
+        console.log("inside signup2");
         if (uploadResult) {
             user.avatar = uploadResult.secure_url
             user.password = await bcrypt.hash(user.password, 10)

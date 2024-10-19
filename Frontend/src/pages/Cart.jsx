@@ -5,7 +5,7 @@ const Cart = () => {
   return (
     <div>
       {/* breadcrum */}
-      <div className="container-fluid">
+      {/* <div className="container-fluid">
         <div className="row px-xl-5">
           <div className="col-12">
             <nav className="breadcrumb bg-light mb-30">
@@ -19,7 +19,7 @@ const Cart = () => {
             </nav>
           </div>
         </div>
-      </div>
+      </div> */}
 
       <div className="container-fluid">
         <div className="row px-xl-5">

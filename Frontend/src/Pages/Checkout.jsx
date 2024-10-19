@@ -7,7 +7,7 @@ const Checkout = () => {
     <>
 
     {/* <!-- Breadcrumb Start --> */}
-    <Breadcrumb/>
+    {/* <Breadcrumb/> */}
     {/* <!-- Breadcrumb End --> */}
 
     {/* <!-- Checkout Start --> */}

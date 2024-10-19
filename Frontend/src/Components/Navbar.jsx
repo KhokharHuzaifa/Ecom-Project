@@ -15,6 +15,7 @@ const Navbar = () => {
   
 
   const {isAuthenticated, user} = useSelector(state=>state.auth)
+  
 
   const handleLogout = async () => {
    await logout();
@@ -42,7 +43,13 @@ const Navbar = () => {
               <button className=' btn dropdown-toggle' style={{border:'none', outline:'none'}} data-toggle="dropdown"> <img src={user?.user?.avatar} width={20}/> <b>Welcome!</b> {user?.user?.username}</button>
                 <div className="dropdown-menu dropdown-menu-right">
                 <button className="dropdown-item" >Profile</button>
-                  <button className="dropdown-item" >Dashboard</button>
+                {
+                  user?.user?.roles === 'admin' ? 
+                  <Link to={'/admin'}><button className="dropdown-item" >Dashboard</button></Link>
+                  :
+                  <Link to={'/customer'}><button className="dropdown-item" >Dashboard</button></Link>
+                }
+                  
                   <button type="button" className='btn btn-light dropdown-item' onClick={handleLogout}>logout</button>
                 </div>
               </div>
@@ -148,13 +155,7 @@ const Navbar = () => {
                       
                   
                   <Link to={'/contact'} className="nav-item nav-link">Contact</Link>
-                  {
-                    isAuthenticated && data?.user?.roles === 'admin' ? 
-                    <>
-                    <Link to={'/admin/addProduct'} className="nav-item nav-link" >AddProduct</Link>
-                    <Link to={'/admin/addcategory'} className="nav-item nav-link" >AddCategory</Link>
-                    </> : null
-                  }
+                
                   
                 </div>
                 {

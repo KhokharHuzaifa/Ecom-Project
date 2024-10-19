@@ -2,11 +2,14 @@ import mongoose from 'mongoose';
 const { Schema } = mongoose;
 
 const productSchema = new Schema({
-    name: String,
+    productName: String,
     price: Number,
     description: String,
-    category:String,
-    image : String
+    productImage: String,
+    category:{
+        type: Schema.Types.ObjectId,
+        ref:'category'
+    }
 });
 
 export const productModel = mongoose.model('product', productSchema);

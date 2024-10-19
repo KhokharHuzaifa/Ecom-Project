@@ -2,11 +2,16 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import Breadcrumb from '../components/Breadcrumb'
 const Detail = () => {
+    const breadcrumbItems = [
+        { label: 'Home', path: '/' },
+        { label: 'Shop', path: '/shop' },
+        { label: 'Shop Detail', path: '/shop/detail' }, // Current page
+      ];
   return (
     <>
 
     {/* <!-- Breadcrumb Start --> */}
-    <Breadcrumb/>
+    <Breadcrumb items={breadcrumbItems}/>
     {/* <!-- Breadcrumb End --> */}
 
 

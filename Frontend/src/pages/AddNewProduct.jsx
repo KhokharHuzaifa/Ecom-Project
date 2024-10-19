@@ -1,9 +1,16 @@
 import React, { useState } from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
+import Breadcrumb from "../components/Breadcrumb";
+import { useCreateProductMutation } from "../redux/Api/productApi";
+import { useGetallcategoryQuery } from "../redux/Api/categoryApi";
 
 const AddNewProduct = () => {
   const [preview, setPreview] = useState(undefined);
+  const [createProduct] = useCreateProductMutation()
+  const {data} = useGetallcategoryQuery()
+  console.log("data",data);
+  
 
   const formik = useFormik({
     initialValues: {
@@ -22,6 +29,9 @@ const AddNewProduct = () => {
     }),
     onSubmit: async (values, { setSubmitting }) => {
       console.log("Form Data:", values);
+      const res = await createProduct(values)
+      console.log("Response............",res);
+      
       setSubmitting(false);
     },
   });
@@ -37,24 +47,21 @@ const AddNewProduct = () => {
     read.readAsDataURL(e.target.files[0]);
   };
 
+
+  const breadcrumbItems = [
+    { label: 'Home', path: '/' },
+    { label: 'DashBoard', path: '/admin' },
+    { label: 'Admin', path: '/admin' },
+    { label: 'Add Product', path: '/shop/add-product' },
+  ]
+
   return (
     <>
       {/* Breadcrumbs */}
-      <div className="container-fluid">
-        <div className="row px-xl-5">
-          <div className="col-12">
-            <nav className="breadcrumb bg-light mb-30">
-              <a className="breadcrumb-item text-dark" href="#">
-                Home
-              </a>
-              <span className="breadcrumb-item active">Add New Product</span>
-            </nav>
-          </div>
-        </div>
-      </div>
+      {/* <Breadcrumb items={breadcrumbItems}/> */}
 
       <div className="container-fluid">
-        <div className="col-lg-8 mb-5 px-xl-5">
+        <div className="col-lg-12 mb-5 px-xl-5">
           <div className="contact-form bg-light p-30">
             <h1 style={{ marginBottom: "20px" }}>Add New Product</h1>
             <div id="success"></div>
@@ -100,9 +107,10 @@ const AddNewProduct = () => {
                   onBlur={formik.handleBlur}
                 >
                   <option value="">Select Category</option>
-                  <option value="1">One</option>
-                  <option value="2">Two</option>
-                  <option value="3">Three</option>
+
+                  {data?.data.map((cat)=>(
+                    <option value={cat._id}>{cat.categoryName}</option>
+                  ))}
                 </select>
                 {formik.touched.category && formik.errors.category ? (
                   <p className="help-block text-danger">{formik.errors.category}</p>
