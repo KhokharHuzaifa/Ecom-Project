@@ -9,7 +9,6 @@ const AddNewProduct = () => {
   const [preview, setPreview] = useState(undefined);
   const [createProduct] = useCreateProductMutation()
   const {data} = useGetallcategoryQuery()
-  console.log("data000000000000000000000",data);
   
 
   const formik = useFormik({
