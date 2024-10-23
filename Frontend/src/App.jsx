@@ -32,7 +32,7 @@ const App = () => {
         <Route path="/detail" element={<Detail />} />
         <Route path="/contact" element={<Contact/>} />
         <Route path="/register" element={isAuthenticated ? <Home/> : <Register />} />
-        <Route path="/login" element={isAuthenticated ? <Home/> : <Login />} />
+        <Route path="/login" element={isAuthenticated ? null : <Login />} />
 
       {/* Admin Routes */}
 

@@ -47,7 +47,7 @@ export const login = async (req, res, next) => {
         }, process.env.JWT_SECRET)        
 
         try {
-            res.cookie("JWT", jwt_token, { maxAge: 900000, httpOnly: true }).json({
+            res.cookie("JWT", jwt_token, { maxAge: 9000000, httpOnly: true }).json({
                 message: "LogIn successfully Redirecting you please wait",
                 validUser,
                 success:true

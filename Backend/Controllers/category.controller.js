@@ -29,9 +29,9 @@ export default class categoryController {
     async getAllCategory(req, res, next) {
         try {
             const data = await categoryModel.find({}).populate('products');
-            res.json({
-                data
-            })
+            console.log("category data.....",data);
+            
+            res.json(data)
         } catch (err) {
             next(err)
         }

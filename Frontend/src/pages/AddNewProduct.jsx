@@ -9,7 +9,7 @@ const AddNewProduct = () => {
   const [preview, setPreview] = useState(undefined);
   const [createProduct] = useCreateProductMutation()
   const {data} = useGetallcategoryQuery()
-  console.log("data",data);
+  console.log("data000000000000000000000",data);
   
 
   const formik = useFormik({
@@ -28,9 +28,8 @@ const AddNewProduct = () => {
       productImage: yup.string().required("Product image is required"),
     }),
     onSubmit: async (values, { setSubmitting }) => {
-      console.log("Form Data:", values);
       const res = await createProduct(values)
-      console.log("Response............",res);
+      console.log("response..........................",res);
       
       setSubmitting(false);
     },
@@ -108,7 +107,7 @@ const AddNewProduct = () => {
                 >
                   <option value="">Select Category</option>
 
-                  {data?.data.map((cat)=>(
+                  {data&&data.map((cat)=>(
                     <option value={cat._id}>{cat.categoryName}</option>
                   ))}
                 </select>

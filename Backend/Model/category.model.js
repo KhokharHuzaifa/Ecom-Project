@@ -9,9 +9,9 @@ const categorySchema = new Schema({
     categoryImg : String,
     products:[
         {
-            type:Schema.Types.ObjectId,
+            type:mongoose.Schema.Types.ObjectId,
             ref:'product'
-        }
+        },
     ]
 });
 
