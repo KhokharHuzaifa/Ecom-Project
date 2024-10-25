@@ -7,29 +7,34 @@ import { useGetallcategoryQuery } from "../redux/Api/categoryApi";
 
 const AddNewProduct = () => {
   const [preview, setPreview] = useState(undefined);
-  const [createProduct] = useCreateProductMutation()
-  const {data} = useGetallcategoryQuery()
-  
+  const [createProduct] = useCreateProductMutation();
+  const { data } = useGetallcategoryQuery();
 
   const formik = useFormik({
     initialValues: {
-      productName: '',
-      price: '',
-      category: '',
-      description: '',
-      productImage: '',
+      productName: "",
+      price: "",
+      category: "",
+      description: "",
+      productImage: "",
+      isFeatured: false
     },
     validationSchema: yup.object({
       productName: yup.string().required("Product name is required"),
-      price: yup.number().required("Price is required").positive("Price must be a positive number"),
+      price: yup
+        .number()
+        .required("Price is required")
+        .positive("Price must be a positive number"),
       category: yup.string().required("Category is required"),
       description: yup.string().required("Description is required"),
       productImage: yup.string().required("Product image is required"),
     }),
     onSubmit: async (values, { setSubmitting }) => {
-      const res = await createProduct(values)
-      console.log("response..........................",res);
+      console.log("VALUES>........",values);
       
+      // const res = await createProduct(values);
+      // console.log("response..........................", res);
+
       setSubmitting(false);
     },
   });
@@ -45,13 +50,12 @@ const AddNewProduct = () => {
     read.readAsDataURL(e.target.files[0]);
   };
 
-
   const breadcrumbItems = [
-    { label: 'Home', path: '/' },
-    { label: 'DashBoard', path: '/admin' },
-    { label: 'Admin', path: '/admin' },
-    { label: 'Add Product', path: '/shop/add-product' },
-  ]
+    { label: "Home", path: "/" },
+    { label: "DashBoard", path: "/admin" },
+    { label: "Admin", path: "/admin" },
+    { label: "Add Product", path: "/shop/add-product" },
+  ];
 
   return (
     <>
@@ -63,7 +67,12 @@ const AddNewProduct = () => {
           <div className="contact-form bg-light p-30">
             <h1 style={{ marginBottom: "20px" }}>Add New Product</h1>
             <div id="success"></div>
-            <form name="sentMessage" id="contactForm" noValidate onSubmit={formik.handleSubmit}>
+            <form
+              name="sentMessage"
+              id="contactForm"
+              noValidate
+              onSubmit={formik.handleSubmit}
+            >
               <div className="control-group">
                 <input
                   type="text"
@@ -79,7 +88,7 @@ const AddNewProduct = () => {
                   <p className=" text-danger">{formik.errors.productName}</p>
                 ) : null}
               </div>
-              
+
               <div className="control-group my-3">
                 <input
                   type="text"
@@ -92,10 +101,12 @@ const AddNewProduct = () => {
                   onBlur={formik.handleBlur}
                 />
                 {formik.touched.price && formik.errors.price ? (
-                  <p className="help-block text-danger">{formik.errors.price}</p>
+                  <p className="help-block text-danger">
+                    {formik.errors.price}
+                  </p>
                 ) : null}
               </div>
-              
+
               <div className="control-group my-3">
                 <select
                   className="form-select"
@@ -106,15 +117,28 @@ const AddNewProduct = () => {
                 >
                   <option value="">Select Category</option>
 
-                  {data&&data.map((cat)=>(
-                    <option value={cat._id}>{cat.categoryName}</option>
-                  ))}
+                  {data &&
+                    data.map((cat) => (
+                      <option value={cat._id}>{cat.categoryName}</option>
+                    ))}
                 </select>
                 {formik.touched.category && formik.errors.category ? (
-                  <p className="help-block text-danger">{formik.errors.category}</p>
+                  <p className="help-block text-danger">
+                    {formik.errors.category}
+                  </p>
                 ) : null}
               </div>
-              
+
+              <div className="control-group">
+                <label>
+                  <input type="checkbox" style={{marginRight:"5px"}} 
+                  checked={formik.values.isFeatured}
+                  onChange={formik.handleChange}
+                  name="isFeatured" />
+                  Feature this product
+                </label>
+              </div>
+
               <div className="control-group">
                 <textarea
                   className="form-control"
@@ -130,7 +154,7 @@ const AddNewProduct = () => {
                   <p className=" text-danger">{formik.errors.description}</p>
                 ) : null}
               </div>
-              
+
               <div className="control-group">
                 <div className="my-3">
                   <input
@@ -142,13 +166,15 @@ const AddNewProduct = () => {
                   />
                 </div>
                 {formik.touched.productImage && formik.errors.productImage ? (
-                  <p className="help-block text-danger">{formik.errors.productImage}</p>
+                  <p className="help-block text-danger">
+                    {formik.errors.productImage}
+                  </p>
                 ) : null}
                 {preview && (
                   <img src={preview} alt="Product Image" width="100" />
                 )}
               </div>
-              <br/>
+              <br />
               <div>
                 <button
                   className="btn btn-primary py-2 px-4"

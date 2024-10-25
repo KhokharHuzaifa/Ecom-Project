@@ -9,6 +9,10 @@ const productSchema = new Schema({
     category:{
         type: mongoose.Schema.Types.ObjectId,
         ref:'category'
+    },
+    isFeature:{
+        type:Boolean,
+        default:true
     }
 });
 
