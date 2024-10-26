@@ -1,14 +1,22 @@
 import { categoryModel } from "../Model/category.model.js";
 import { productModel } from "../Model/product.model.js";
+import { v2 as cloudinary } from "cloudinary";
+
 
 export default class productsController {
   async createProduct(req, res, next) {
         try {
-          const data = req.body;
-          console.log("Request Data: ", data); 
+          const data = req.body;         
+
+          const uploadResult = await cloudinary.uploader.upload(data.productImage, {
+            folder: "e-commerece-app",
+          });
+
+          if (uploadResult) {
+            data.productImage = uploadResult.secure_url
+          }
       
           const product = await productModel.create(data);
-          console.log("Created Product: ", product); 
       
           if (!product) {
             return res.status(400).json({ message: "Product creation failed" });
@@ -21,25 +29,25 @@ export default class productsController {
             { new: true }
           );
       
-          console.log("Updated Category: ", cat); 
       
           if (!cat) {
             return res.status(404).json({ message: "Category not found" });
           }
+
+          console.log("product........",product);
+          
       
           res.status(201).json({
             message: "Product added into database successfully",
             product,
           });
         } catch (err) {
-          console.error("Error creating product: ", err); 
           next(err);
         }
   }
   async getAllProducts(req, res, next) {
     try {
       const data = await productModel.find();
-      console.log("getting all products...............",data);
       
       res.json({
         message: "All product route hit",

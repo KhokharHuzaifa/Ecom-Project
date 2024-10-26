@@ -10,9 +10,9 @@ const productSchema = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref:'category'
     },
-    isFeature:{
+    isFeatured:{
         type:Boolean,
-        default:true
+        default:false
     }
 });
 

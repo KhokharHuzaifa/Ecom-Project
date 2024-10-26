@@ -30,10 +30,9 @@ const AddNewProduct = () => {
       productImage: yup.string().required("Product image is required"),
     }),
     onSubmit: async (values, { setSubmitting }) => {
-      console.log("VALUES>........",values);
       
-      // const res = await createProduct(values);
-      // console.log("response..........................", res);
+      const res = await createProduct(values);
+      console.log("response..........................", res);
 
       setSubmitting(false);
     },
@@ -133,7 +132,7 @@ const AddNewProduct = () => {
                 <label>
                   <input type="checkbox" style={{marginRight:"5px"}} 
                   checked={formik.values.isFeatured}
-                  onChange={formik.handleChange}
+                  onChange={(e)=>formik.setFieldValue('isFeatured',e.target.checked)}
                   name="isFeatured" />
                   Feature this product
                 </label>
