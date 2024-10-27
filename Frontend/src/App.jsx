@@ -29,7 +29,7 @@ const App = () => {
       <Route path='/' element={<Outletcomp/>}>
         <Route path="/" element={<Home/>} />
         <Route path="/shop" element={<Shop/>} />
-        <Route path="/detail" element={<Detail />} />
+        <Route path="/detail/:id" element={<Detail />} />
         <Route path="/contact" element={<Contact/>} />
         <Route path="/register" element={isAuthenticated ? <Home/> : <Register />} />
         <Route path="/login" element={isAuthenticated ? null : <Login />} />

@@ -142,7 +142,7 @@ const Navbar = () => {
                 <div className="navbar-nav mr-auto py-0">
                   <Link to={'/'} className="nav-item nav-link">Home</Link>
                   <Link to={'/shop'} className="nav-item nav-link">Shop</Link>
-                  <Link to={'/detail'} className="nav-item nav-link">Shop Detail</Link>
+                  {/* <Link to={'/detail'} className="nav-item nav-link">Shop Detail</Link> */}
                   
                     {
                       isAuthenticated  ? 

@@ -60,12 +60,11 @@ export default class productsController {
 
   async getSingleProduct(req, res, next) {
     try {
-      const { id } = req.query;
+      const { id } = req.params;
       const singleProduct = await productModel.findById(id);
-      res.json({
-        message: "Single product route hit",
-        product: singleProduct,
-      });
+      res.json(
+        singleProduct,
+      );
     } catch (error) {
       next(err);
     }

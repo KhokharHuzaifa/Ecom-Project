@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const ProductCard = ({ product }) => {
   return (
@@ -37,9 +38,8 @@ const ProductCard = ({ product }) => {
             </div>
           </div>
           <div className="text-center py-4">
-            <a
+            <Link to={`/detail/${product._id}`}
               className="h6 text-decoration-none text-truncate"
-              href=""
               style={{
                 whiteSpace: "nowrap",
                 overflow: "hidden",
@@ -49,7 +49,7 @@ const ProductCard = ({ product }) => {
               }}
             >
               {product.productName}
-            </a>
+            </Link>
             <div className="d-flex align-items-center justify-content-center mt-2">
               <h5>${product.price}</h5>
               <h6 className="text-muted ml-2">
