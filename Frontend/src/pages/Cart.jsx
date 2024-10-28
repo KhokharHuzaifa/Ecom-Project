@@ -1,6 +1,7 @@
 import React from "react";
 import Checkout from "./Checkout";
 import CartProducts from '../components/CartProducts'
+import OrderTotal from "../components/OrderTotal";
 const Cart = () => {
   return (
     <div>
@@ -24,7 +25,7 @@ const Cart = () => {
       <div className="container-fluid">
         <div className="row px-xl-5">
           <CartProducts />
-          <Checkout />
+          <OrderTotal/>
         </div>
       </div>
     </div>

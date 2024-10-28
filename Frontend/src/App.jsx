@@ -30,6 +30,8 @@ const App = () => {
         <Route path="/" element={<Home/>} />
         <Route path="/shop" element={<Shop/>} />
         <Route path="/detail/:id" element={<Detail />} />
+        <Route path="/checkout" element={<Checkout />} />
+            <Route path="/cart" element={<Cart />} />
         <Route path="/contact" element={<Contact/>} />
         <Route path="/register" element={isAuthenticated ? <Home/> : <Register />} />
         <Route path="/login" element={isAuthenticated ? null : <Login />} />
@@ -44,8 +46,7 @@ const App = () => {
       {/* Customer Routes */}
 
           <Route path='/customer' element={<Customer role='customer'/>}>
-            <Route path="/customer/checkout" element={<Checkout />} />
-            <Route path="/customer/cart" element={<Cart />} />
+            
           </Route>
 
       </Route>

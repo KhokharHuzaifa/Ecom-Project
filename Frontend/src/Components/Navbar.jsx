@@ -15,6 +15,7 @@ const Navbar = () => {
   
 
   const {isAuthenticated, user} = useSelector(state=>state.auth)
+  const { cart } = useSelector((v) => v.cart);
   
 
   const handleLogout = async () => {
@@ -144,34 +145,29 @@ const Navbar = () => {
                   <Link to={'/shop'} className="nav-item nav-link">Shop</Link>
                   {/* <Link to={'/detail'} className="nav-item nav-link">Shop Detail</Link> */}
                   
-                    {
-                      isAuthenticated  ? 
-                      <>
-                      <Link to={'/customer/cart'} className="nav-item nav-link">Shopping Cart</Link>
-                      <Link to={'/customer/checkout'} className="nav-item nav-link">Checkout</Link>
+                  
+                      <Link to={'/cart'} className="nav-item nav-link">Shopping Cart</Link>
+                      <Link to={'/checkout'} className="nav-item nav-link">Checkout</Link>
                    
-                      </> : null
-                    }
+                   
                       
                   
                   <Link to={'/contact'} className="nav-item nav-link">Contact</Link>
                 
                   
                 </div>
-                {
-                  isAuthenticated ? <>
+                
                   <div className="navbar-nav ml-auto py-0 d-none d-lg-block">
-                  <Link href="" className="btn px-0">
+                  <Link to={'/'} className="btn px-0">
                     <i className="fas fa-heart text-primary"></i>
                     <span className="badge text-secondary border border-secondary rounded-circle" style={{ paddingBottom: "2px" }}>0</span>
                   </Link>
-                  <Link href="" className="btn px-0 ml-3">
+                  <Link to={'/cart'} className="btn px-0 ml-3">
                     <i className="fas fa-shopping-cart text-primary"></i>
-                    <span className="badge text-secondary border border-secondary rounded-circle" style={{ paddingBottom: "2px" }}>0</span>
+                    <span className="badge text-secondary border border-secondary rounded-circle" style={{ paddingBottom: "2px" }}>{cart && cart.length > 0 ? cart.length : 0}</span>
                   </Link>
                 </div>
-                </> : null
-                }
+                 
                 
               </div>
             </nav>

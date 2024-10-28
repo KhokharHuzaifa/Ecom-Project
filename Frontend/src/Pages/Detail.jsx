@@ -2,9 +2,17 @@ import React from "react";
 import { Link, useParams } from "react-router-dom";
 import Breadcrumb from "../components/Breadcrumb";
 import { useGetsingleproductQuery } from "../redux/Api/productApi";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../redux/features/cartSlice";
 const Detail = () => {
   const { id } = useParams();
   const { data } = useGetsingleproductQuery(id);
+
+  const dispatch = useDispatch()
+
+  const handleAddToCart = (prod)=>{
+    dispatch(addToCart(prod))
+  }
 
   const breadcrumbItems = [
     { label: "Home", path: "/" },
@@ -244,7 +252,7 @@ const Detail = () => {
                     </button>
                   </div>
                 </div>
-                <button className="btn btn-primary px-3">
+                <button className="btn btn-primary px-3" onClick={()=>handleAddToCart(data && data)}>
                   <i className="fa fa-shopping-cart mr-1"></i> Add To Cart
                 </button>
               </div>

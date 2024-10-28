@@ -1,7 +1,14 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { addToCart } from "../redux/features/cartSlice";
 
 const ProductCard = ({ product }) => {
+  const dispatch = useDispatch()
+
+  const handleAddToCart = (prod)=>{
+    dispatch(addToCart(prod))
+  }
   return (
     <>
       <div className="col-lg-3 col-md-4 col-sm-6 pb-1">
@@ -23,16 +30,16 @@ const ProductCard = ({ product }) => {
               }}
             />
             <div className="product-action">
-              <a className="btn btn-outline-dark btn-square" href="">
-                <i className="fa fa-shopping-cart"></i>
+              <a className="btn btn-outline-dark btn-square" onClick={()=>handleAddToCart(product)}>
+                <i className="fa fa-shopping-cart " ></i>
               </a>
-              <a className="btn btn-outline-dark btn-square" href="">
+              <a className="btn btn-outline-dark btn-square" >
                 <i className="far fa-heart"></i>
               </a>
-              <a className="btn btn-outline-dark btn-square" href="">
+              <a className="btn btn-outline-dark btn-square" >
                 <i className="fa fa-sync-alt"></i>
               </a>
-              <a className="btn btn-outline-dark btn-square" href="">
+              <a className="btn btn-outline-dark btn-square">
                 <i className="fa fa-search"></i>
               </a>
             </div>
