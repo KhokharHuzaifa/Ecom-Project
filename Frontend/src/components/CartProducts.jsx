@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { removeFromCart } from "../redux/features/cartSlice";
+import { Decreament, Increament, removeFromCart } from "../redux/features/cartSlice";
 
 const CartProducts = () => {
   const { cart } = useSelector((v) => v.cart);
@@ -9,10 +9,17 @@ const CartProducts = () => {
   const handleDelete = (product)=>{
     dispatch(removeFromCart(product))
 }
+
+const handleIncreament = (quantity)=>{
+  dispatch(Increament(quantity))
+}
+const handledecreament = (quantity)=>{
+  dispatch(Decreament(quantity))
+}
   return (
     <>
       <div className="col-lg-8 table-responsive mb-5">
-        <table className="table table-light table-borderless table-hover text-center mb-0">
+      {cart && cart.length === 0 ? <h1 style={{textAlign:"center",marginBlock:"200px"}}>No Item is Added</h1> : <table className="table table-light table-borderless table-hover text-center mb-0">
           <thead className="thead-dark">
             <tr>
               <th>Products</th>
@@ -47,26 +54,26 @@ const CartProducts = () => {
                   <td className="align-middle col-lg-2">
                     <div
                       className="input-group quantity mx-auto"
-                      style={{ width: "100px;" }}
-                    >
+                      >
                       <div className="input-group-btn">
-                        <button className="btn btn-sm btn-primary btn-minus">
+                        <button className="btn btn-sm btn-primary btn-minus"  disabled={prod.quantity == 1 ? true : false} onClick={()=>handledecreament(prod)}>
                           <i className="fa fa-minus"></i>
                         </button>
                       </div>
                       <input
                         type="text"
+                        style={{ width: "500px;" }}
                         className="form-control form-control-sm bg-secondary border-0 text-center"
-                        value="1"
+                        value={prod.quantity}
                       />
                       <div className="input-group-btn">
-                        <button className="btn btn-sm btn-primary btn-plus">
+                        <button className="btn btn-sm btn-primary btn-plus" onClick={()=>handleIncreament(prod)}>
                           <i className="fa fa-plus"></i>
                         </button>
                       </div>
                     </div>
                   </td>
-                  <td className="align-middle">$150</td>
+                  <td className="align-middle">${(prod.quantity * prod.price).toFixed(2)}</td>
                   <td className="align-middle">
                     <button className="btn btn-sm btn-danger" onClick={()=>handleDelete(prod)}>
                       <i className="fa fa-times"></i>
@@ -75,7 +82,8 @@ const CartProducts = () => {
                 </tr>
               ))}
           </tbody>
-        </table>
+        </table>}
+        
       </div>
     </>
   );

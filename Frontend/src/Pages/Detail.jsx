@@ -1,17 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import Breadcrumb from "../components/Breadcrumb";
 import { useGetsingleproductQuery } from "../redux/Api/productApi";
-import { useDispatch } from "react-redux";
-import { addToCart } from "../redux/features/cartSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart, Decreament, Increament } from "../redux/features/cartSlice";
 const Detail = () => {
   const { id } = useParams();
   const { data } = useGetsingleproductQuery(id);
+  console.log("Data...",data && data);
+  
+  const { cart } = useSelector((v) => v.cart);
 
   const dispatch = useDispatch()
+  const [quantity,setQuantity] = useState(1)
 
   const handleAddToCart = (prod)=>{
-    dispatch(addToCart(prod))
+    dispatch(addToCart({...prod,quantity}))
+  }
+  const handleIncreament = ()=>{
+    setQuantity(quantity + 1)
+  }
+  const handledecreament = ()=>{
+    if (quantity > 1) setQuantity(quantity - 1)
   }
 
   const breadcrumbItems = [
@@ -237,17 +247,17 @@ const Detail = () => {
                   style={{ width: "130px" }}
                 >
                   <div className="input-group-btn">
-                    <button className="btn btn-primary btn-minus">
+                    <button className="btn btn-primary btn-minus" disabled={quantity === 1 } onClick={handledecreament}>
                       <i className="fa fa-minus"></i>
                     </button>
                   </div>
                   <input
                     type="text"
                     className="form-control bg-secondary border-0 text-center"
-                    value="1"
+                    value={quantity}
                   />
                   <div className="input-group-btn">
-                    <button className="btn btn-primary btn-plus">
+                    <button className="btn btn-primary btn-plus" onClick={handleIncreament}>
                       <i className="fa fa-plus"></i>
                     </button>
                   </div>
