@@ -7,7 +7,6 @@ import { addToCart, Decreament, Increament } from "../redux/features/cartSlice";
 const Detail = () => {
   const { id } = useParams();
   const { data } = useGetsingleproductQuery(id);
-  console.log("Data...",data && data);
   
   const { cart } = useSelector((v) => v.cart);
 
