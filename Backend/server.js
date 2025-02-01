@@ -3,6 +3,7 @@ import productrouter from './Routes/routes.product.js'
 import authrouter from "./Routes/routes.auth.js"
 import userrouter from "./Routes/routes.user.js"
 import categoryrouter from "./Routes/routes.category.js"
+import paymentrouter from "./Routes/routes.payment.js"
 import bodyParser from 'body-parser'
 import { connectDB } from './Config/db.js'
 import 'dotenv/config'
@@ -34,10 +35,11 @@ app.use(bodyParser.json({limit:'50mb'}))
 app.use(cookieParser())
 
 // route mouting
+app.use("/",categoryrouter)
+app.use("/",paymentrouter)
 app.use('/',productrouter)
 app.use("/",authrouter)
 app.use("/",userrouter)
-app.use("/",categoryrouter)
 
 // global error handler
 app.use(errorHandler)

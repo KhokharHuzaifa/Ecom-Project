@@ -5,6 +5,7 @@ import authReducer from './features/authSlice'
 import cartReducer from './features/cartSlice'
 import { authApi } from './Api/authApi'
 import {categoryApi} from './Api/categoryApi'
+import {paymentApi} from './Api/PaymentApi'
 import { productApi } from './Api/productApi'
 
 const persistConfig = {
@@ -19,6 +20,7 @@ const persistConfig = {
    [authApi.reducerPath]: authApi.reducer,
    [categoryApi.reducerPath]: categoryApi.reducer,
    [productApi.reducerPath]: productApi.reducer,
+   [paymentApi.reducerPath]: paymentApi.reducer,
  });
 
  const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -39,7 +41,7 @@ const persistConfig = {
 export const store = configureStore({
    reducer: persistedReducer,
    middleware: (getDefaultMiddleware) =>
-      getDefaultMiddleware().concat(authApi.middleware,categoryApi.middleware,productApi.middleware),
+      getDefaultMiddleware().concat(authApi.middleware,categoryApi.middleware,productApi.middleware,paymentApi.middleware),
 })
 
 export const persistor = persistStore(store);

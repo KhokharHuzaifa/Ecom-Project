@@ -32,10 +32,7 @@ export default class productsController {
       
           if (!cat) {
             return res.status(404).json({ message: "Category not found" });
-          }
-
-          console.log("product........",product);
-          
+          }          
       
           res.status(201).json({
             message: "Product added into database successfully",

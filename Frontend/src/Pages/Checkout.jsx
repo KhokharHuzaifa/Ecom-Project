@@ -4,8 +4,10 @@ import Breadcrumb from "../components/Breadcrumb";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useSelector } from "react-redux";
+import { useMakePaymentMutation } from "../redux/Api/PaymentApi";
 const Checkout = () => {
   const { cart } = useSelector((v) => v.cart);
+  const [makePayment,{isLoading}] = useMakePaymentMutation()
 
   const [total,setTotal] = useState(0)
   const [subTotal,setSubTotal] = useState(0)
@@ -14,10 +16,16 @@ const Checkout = () => {
   useEffect(()=>{
     const calculateSubtotal = cart.reduce((acc,item)=>acc + item.price * item.quantity,0)
     setSubTotal(calculateSubtotal)
-    setTotal(subTotal + shipping)
+    setTotal(calculateSubtotal + shipping)
   },[cart,shipping])
 
+  const handlePayment = (cart) => {
+    makePayment(cart)
+    
+  }
+
   const { handleChange, handleSubmit, values, handleBlur, touched, errors } =
+
     useFormik({
       initialValues: {
         fname: "",
@@ -342,6 +350,7 @@ const Checkout = () => {
             </div>
           </div>
         </form>
+        <button onClick={()=>handlePayment(cart)}>Pay Now</button>
       </div>
       {/* <!-- Checkout End --> */}
     </>
