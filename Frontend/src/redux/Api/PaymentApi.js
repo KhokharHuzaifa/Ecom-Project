@@ -4,6 +4,8 @@ export const paymentApi = createApi({
   reducerPath: "paymentApi",
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:8000",
+    credentials: "include",
+    mode: "cors",
   }),
   endpoints: (builder) => ({
     makePayment: builder.mutation({

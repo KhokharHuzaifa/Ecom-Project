@@ -4,10 +4,12 @@ import Breadcrumb from "../components/Breadcrumb";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useSelector } from "react-redux";
+import {loadStripe} from '@stripe/stripe-js';
 import { useMakePaymentMutation } from "../redux/Api/PaymentApi";
 const Checkout = () => {
   const { cart } = useSelector((v) => v.cart);
   const [makePayment,{isLoading}] = useMakePaymentMutation()
+
 
   const [total,setTotal] = useState(0)
   const [subTotal,setSubTotal] = useState(0)
@@ -19,8 +21,19 @@ const Checkout = () => {
     setTotal(calculateSubtotal + shipping)
   },[cart,shipping])
 
-  const handlePayment = (cart) => {
-    makePayment(cart)
+  const handlePayment = async (cart) => {
+    const stripe = await loadStripe('pk_test_51QmGhxF1ftSQqMNIu4xQB6ytzdSvDoLqoN8tREUr1fp2J2hNRlbffXqfsHCB1M1jb9hcbWkrOt3TwqkwkZjwngTP00sUywGEla');
+    const sessionJob = await makePayment(cart).unwrap()
+    console.log(",,,,,,,,,,,,,,,,,,,,,,,,,,,,",sessionJob);
+    
+    const result = stripe.redirectToCheckout({
+      sessionId : sessionJob.id
+    })
+
+    if(result.error) {
+      console.log("eeeeeeeeeeerrrrrrrrrrrrrooooooooorrrrrrrrr",result.error);
+      
+    }
     
   }
 
