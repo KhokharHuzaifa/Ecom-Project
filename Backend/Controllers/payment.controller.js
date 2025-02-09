@@ -13,11 +13,11 @@ export const makePayment = async  (req, res, next) => {
 
     const lineItems = req.body.map((items) => ({
       price_data: {
-        currency: 'pkr',
+        currency: 'usd',
         product_data: {
           name: items.productName
         },
-        unit_amount: Math.round(items.price * 100), // Ensures integer value
+        unit_amount: Math.max(Math.round(items.price * 100), 50), // Minimum Stripe requirement
       },
       quantity: items.quantity,
     }));
