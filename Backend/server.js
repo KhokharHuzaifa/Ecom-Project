@@ -12,9 +12,12 @@ import cookieParser from 'cookie-parser'
 import cors from 'cors'
 import { v2 as cloudinary } from 'cloudinary';
 import 'dotenv/config'
+import { webhooks } from './Controllers/webHook.js'
+// import { webhooks } from './Controllers/webHook.js'
 
 connectDB();
 const app = express()
+const router = express.Router()
 
 // cloudinary setup 
 cloudinary.config({ 
@@ -22,6 +25,8 @@ cloudinary.config({
     api_key: process.env.API_KEY, 
     api_secret: process.env.API_SECRET
 });
+app.post('/webhook', express.raw({ type: 'application/json' }), webhooks); 
+
 
 // cors config
 const corsOptions = {

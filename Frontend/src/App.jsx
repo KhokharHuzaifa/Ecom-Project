@@ -21,6 +21,9 @@ import Customer from './Layout/Customer'
 import { useSelector } from 'react-redux'
 import AddNewProduct from './pages/AddNewProduct'
 import AddCategory from './pages/AddCategory'
+import Success from './components/Success'
+import Cancel from './components/Cancel'
+import OrderHistoryPage from './components/OrderHistoryPage'
 
 const App = () => {
   const {isAuthenticated} = useSelector((v)=>v.auth)
@@ -31,6 +34,9 @@ const App = () => {
         <Route path="/shop" element={<Shop/>} />
         <Route path="/detail/:id" element={<Detail />} />
         <Route path="/checkout" element={<Checkout />} />
+        <Route path="/success" element={<Success />} />
+        <Route path="/order" element={<OrderHistoryPage />} />
+        <Route path="/cancel" element={<Cancel />} />
             <Route path="/cart" element={<Cart />} />
         <Route path="/contact" element={<Contact/>} />
         <Route path="/register" element={isAuthenticated ? <Home/> : <Register />} />
