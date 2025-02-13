@@ -59,6 +59,12 @@ export const authApi = createApi({
       },
     })
   }),
+  // allUser: builder.query({
+  //   query: ()=>({
+  //     url:"/user/all",
+  //     method:'GET'
+  //   })
+  // })
 })
 
 export const { useLoginMutation, useRegisterMutation , useGetMeQuery, useLazyLogoutQuery} = authApi

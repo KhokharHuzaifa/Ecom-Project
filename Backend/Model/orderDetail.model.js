@@ -20,7 +20,7 @@ import mongoose, { Schema } from "mongoose";
 
 const orderSchema = new Schema({
   userId: {
-    type: String,
+    type:String,
     default: "",
   },
   productDetails: {

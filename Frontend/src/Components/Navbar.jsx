@@ -50,6 +50,7 @@ const Navbar = () => {
                   :
                   <Link to={'/customer'}><button className="dropdown-item" >Dashboard</button></Link>
                 }
+                <Link to={'/order'}><button className="dropdown-item" >Orders</button></Link>
                   
                   <button type="button" className='btn btn-light dropdown-item' onClick={handleLogout}>logout</button>
                 </div>

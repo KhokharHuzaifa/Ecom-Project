@@ -7,6 +7,7 @@ import { authApi } from './Api/authApi'
 import {categoryApi} from './Api/categoryApi'
 import {paymentApi} from './Api/PaymentApi'
 import { productApi } from './Api/productApi'
+import { orderDataApi } from './Api/orderDataApi';
 
 const persistConfig = {
    key: "root",
@@ -21,6 +22,7 @@ const persistConfig = {
    [categoryApi.reducerPath]: categoryApi.reducer,
    [productApi.reducerPath]: productApi.reducer,
    [paymentApi.reducerPath]: paymentApi.reducer,
+   [orderDataApi.reducerPath]: orderDataApi.reducer,
  });
 
  const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -41,7 +43,7 @@ const persistConfig = {
 export const store = configureStore({
    reducer: persistedReducer,
    middleware: (getDefaultMiddleware) =>
-      getDefaultMiddleware().concat(authApi.middleware,categoryApi.middleware,productApi.middleware,paymentApi.middleware),
+      getDefaultMiddleware().concat(authApi.middleware,orderDataApi.middleware,categoryApi.middleware,productApi.middleware,paymentApi.middleware),
 })
 
 export const persistor = persistStore(store);

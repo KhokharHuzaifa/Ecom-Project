@@ -4,6 +4,7 @@ import authrouter from "./Routes/routes.auth.js"
 import userrouter from "./Routes/routes.user.js"
 import categoryrouter from "./Routes/routes.category.js"
 import paymentrouter from "./Routes/routes.payment.js"
+import orderListrouter from "./Routes/routes.order_list.js"
 import bodyParser from 'body-parser'
 import { connectDB } from './Config/db.js'
 import 'dotenv/config'
@@ -44,6 +45,7 @@ app.use("/",categoryrouter)
 app.use("/",paymentrouter)
 app.use('/',productrouter)
 app.use("/",authrouter)
+app.use("/",orderListrouter)
 app.use("/",userrouter)
 
 // global error handler
