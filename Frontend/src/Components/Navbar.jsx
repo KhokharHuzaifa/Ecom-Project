@@ -147,8 +147,8 @@ const Navbar = () => {
                   {/* <Link to={'/detail'} className="nav-item nav-link">Shop Detail</Link> */}
                   
                   
-                      <Link to={'/cart'} className="nav-item nav-link">Shopping Cart</Link>
-                      <Link to={'/checkout'} className="nav-item nav-link">Checkout</Link>
+                      {/* <Link to={'/cart'} className="nav-item nav-link">Shopping Cart</Link> */}
+                      {/* <Link to={'/checkout'} className="nav-item nav-link">Checkout</Link> */}
                    
                    
                       
