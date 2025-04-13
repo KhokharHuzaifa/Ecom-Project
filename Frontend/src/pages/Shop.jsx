@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import ShopProducts from '../components/ShopProducts'
 import SideBar from '../components/SideBar'
 const Shop = () => {

@@ -4,6 +4,7 @@ import Vendor from "../components/Vendor";
 import { useGetallcategoryQuery } from "../redux/Api/categoryApi";
 import ProductCard from "../components/ProductCard";
 import { useGetallproductQuery } from "../redux/Api/productApi";
+import { Link } from "react-router-dom";
 const Home = () => {
   const { data: category } = useGetallcategoryQuery();
   const { data: Products } = useGetallproductQuery();
@@ -66,7 +67,7 @@ const Home = () => {
           {category &&
             category.map((cat) => (
               <div className="col-lg-3 col-md-4 col-sm-6 pb-1" id={cat._id}>
-                <a className="text-decoration-none" href="">
+                <Link to={`/shop/${cat._id}`} className="text-decoration-none">
                   <div className="cat-item d-flex align-items-center mb-4">
                     <div
                       className="overflow-hidden"
@@ -82,7 +83,7 @@ const Home = () => {
                       </small>
                     </div>
                   </div>
-                </a>
+                </Link>
               </div>
             ))}
         </div>
