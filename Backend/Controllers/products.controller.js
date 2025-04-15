@@ -43,12 +43,45 @@ export default class productsController {
         }
   }
   async getAllProducts(req, res, next) {
+     const {price,limit=4,page=1,category} = req.query
     try {
-      const data = await productModel.find();
+
+      console.log("category.......",category);
+      
+
+      let query = {}
+
+      const parsedLimit = parseInt(limit);
+      const parsedPage = parseInt(page);
+
+      if(price){
+        query.price = {$regex: price.trim(), $options: "i"}
+      }
+
+      if (category && mongoose.Types.ObjectId.isValid(category)) {
+        query.category = new mongoose.Types.ObjectId(category);
+        console.log("inside if condition...........");
+        
+      }
+
+      const skip = (parsedPage - 1) * parsedLimit
+
+      console.log("Query Category.....",query.category);
+      
+
+
+
+      const data = await productModel.find(query).skip(skip).limit(parsedLimit)
+
+      const total = await productModel.countDocuments(query)
       
       res.json({
         message: "All product route hit",
         data,
+        success:true,
+        page:parsedPage,
+        total,
+        pages:Math.ceil(total/parsedLimit)
       });
     } catch (err) {
       next(err);

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import ShopProducts from '../components/ShopProducts'
 import SideBar from '../components/SideBar'
 const Shop = () => {
+  const [price, setPrice] = React.useState("");
   return (
     <>
       <div class="container-fluid">
@@ -22,10 +23,10 @@ const Shop = () => {
 
       <div class="row px-xl-5 px-md-4 px-sm-2">
         {/* Fitering SideBar */}
-        <SideBar />
+        <SideBar price={price} setPrice={setPrice}/>
 
         {/* Shop Products */}
-        <ShopProducts />
+        <ShopProducts price={price}/>
       </div>
     </>
   );

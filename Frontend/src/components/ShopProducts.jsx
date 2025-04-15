@@ -4,24 +4,33 @@ import { useParams } from "react-router-dom";
 import { addToCart } from "../redux/features/cartSlice";
 import { useDispatch } from "react-redux";
 
-const ShopProducts = () => {
-  const [products, setProducts] = useState([]);
-  const { data, isLoading, error } = useGetallproductQuery();
+const ShopProducts = ({price}) => {
+
+  
+  const [page, setPage] = React.useState(1);
+  const [limit, setLimit] = React.useState(4);
+  const [totalPages, setTotalPages] = React.useState(0);
+  const [product,setProduct] = useState([])
+  
+
+
+
   const { id } = useParams();
+  const category = id
+  const { data, isLoading, error } = useGetallproductQuery({price,limit,page,category});
   const dispatch = useDispatch()
 
   useEffect(() => {
-    if (data && id) {
-      let prod = data.data.filter((p) => p.category === id);
-      setProducts(prod);
+    if (data && data.data) {
+      setProduct(data.data)
+      setTotalPages(data?.pages);
     }
-  }, [data, id]);
+  }, [data,page,limit]);
 
   const handleAddToCart = (prod)=>{
       dispatch(addToCart(prod))
     }
 
-  console.log("products...", products);
 
   return (
     <>
@@ -83,70 +92,7 @@ const ShopProducts = () => {
           </div>
 
           {/* product card */}
-
-          {products && id ? products.map((prod) => (
-            <div class="col-lg-4 col-md-6 col-sm-6 pb-1">
-              <div class="product-item bg-light mb-4">
-                <div class="product-img position-relative overflow-hidden">
-                  <img
-                    class="img-fluid w-100"
-                    style={{
-                      height: "100%",
-                      height: "250px",
-                      objectFit: "cover",
-                    }}
-                    src={prod.productImage}
-                    alt="product image"
-                  />
-                  <div class="product-action">
-                    <a class="btn btn-outline-dark btn-square" onClick={()=>handleAddToCart(prod)}>
-                      <i class="fa fa-shopping-cart"></i>
-                    </a>
-                    <a class="btn btn-outline-dark btn-square" href="">
-                      <i class="far fa-heart"></i>
-                    </a>
-                    <a class="btn btn-outline-dark btn-square" href="">
-                      <i class="fa fa-sync-alt"></i>
-                    </a>
-                    <a class="btn btn-outline-dark btn-square" href="">
-                      <i class="fa fa-search"></i>
-                    </a>
-                  </div>
-                </div>
-                <div class="text-center py-4">
-                  <a
-                    class="h6 text-decoration-none text-truncate"
-                    href=""
-                    style={{
-                      whiteSpace: "nowrap",
-                      overflow: "hidden",
-                      textOverflow: "ellipsis",
-                      display: "block",
-                      width: "100%",
-                    }}
-                  >
-                    {prod.productName}
-                  </a>
-                  <div class="d-flex align-items-center justify-content-center mt-2">
-                    <h5>${prod.price}</h5>
-                    {/* <h6 class="text-muted ml-2">
-                      <del>$123.00</del>
-                    </h6> */}
-                  </div>
-                  <div class="d-flex align-items-center justify-content-center mb-1">
-                    <small class="fa fa-star text-primary mr-1"></small>
-                    <small class="fa fa-star text-primary mr-1"></small>
-                    <small class="fa fa-star text-primary mr-1"></small>
-                    <small class="fa fa-star text-primary mr-1"></small>
-                    <small class="fa fa-star text-primary mr-1"></small>
-                    <small>(99)</small>
-                  </div>
-                </div>
-              </div>
-            </div>
-          ))
-        :
-        data && data.data.map((prod) => (
+        {product.map((prod) => (
           <div class="col-lg-4 col-md-6 col-sm-6 pb-1">
             <div class="product-item bg-light mb-4">
               <div class="product-img position-relative overflow-hidden">
@@ -207,7 +153,7 @@ const ShopProducts = () => {
             </div>
           </div>
         ))
-        }
+      }
 
           {/* Pagination */}
           <div class="col-12">

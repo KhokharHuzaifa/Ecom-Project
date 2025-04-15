@@ -8,9 +8,9 @@ export const productApi = createApi({
   }),
   endpoints: (builder) => ({
     getallproduct: builder.query({
-      query: () => ({
-        url: "/product/all",
-        methid: "GET",
+      query: (data = {}) => ({
+        url: `/product/all?price=${data.price || ""}&limit=${data.limit || 4}&page=${data.page || 1}&category=${data.category || ""}`,
+        method: "GET",
       }),
     }),
     getsingleproduct: builder.query({

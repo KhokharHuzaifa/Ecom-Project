@@ -1,6 +1,6 @@
 import React from "react";
 
-const SideBar = () => {
+const SideBar = ({price,setPrice}) => {
   return (
     <>
       <div class="col-lg-3 col-md-4 ">
