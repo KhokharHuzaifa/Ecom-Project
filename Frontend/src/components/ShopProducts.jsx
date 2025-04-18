@@ -16,9 +16,12 @@ const ShopProducts = ({price}) => {
 
 
   const { id } = useParams();
-  const category = id
-  const { data, isLoading, error } = useGetallproductQuery({price,limit,page,category});
+  // const category
+  const { data, isLoading, error } = useGetallproductQuery({price,limit,page,category:id});
   const dispatch = useDispatch()
+
+  console.log("data mens category..............",data && data.data);
+  
 
   useEffect(() => {
     if (data && data.data) {

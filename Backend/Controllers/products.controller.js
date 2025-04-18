@@ -1,5 +1,6 @@
 import { categoryModel } from "../Model/category.model.js";
 import { productModel } from "../Model/product.model.js";
+import mongoose from "mongoose";
 import { v2 as cloudinary } from "cloudinary";
 
 
@@ -43,11 +44,10 @@ export default class productsController {
         }
   }
   async getAllProducts(req, res, next) {
-     const {price,limit=4,page=1,category} = req.query
+     const {price,limit=4,page=1,category=''} = req.query
     try {
 
-      console.log("category.......",category);
-      
+      console.log("req.query:", req.query);      
 
       let query = {}
 
@@ -58,15 +58,24 @@ export default class productsController {
         query.price = {$regex: price.trim(), $options: "i"}
       }
 
-      if (category && mongoose.Types.ObjectId.isValid(category)) {
-        query.category = new mongoose.Types.ObjectId(category);
-        console.log("inside if condition...........");
+      // if (category && mongoose.Types.ObjectId.isValid(category)) {
+      //   query.category = new mongoose.Types.ObjectId(category);
+      //   console.log("inside if condition...........");
         
+      // }
+
+      if (category) {
+        if (mongoose.Types.ObjectId.isValid(category)) {
+          query.category = new mongoose.Types.ObjectId(category);
+          console.log("Category ObjectId:", query.category);
+        } else {
+          console.log("Invalid category ID format");
+        }
       }
 
       const skip = (parsedPage - 1) * parsedLimit
 
-      console.log("Query Category.....",query.category);
+      console.log("Final Query:", query);
       
 
 
