@@ -6,11 +6,13 @@ export const categoryApi = createApi({
     credentials: "include",
     mode: "cors",
   }),
+  tagTypes:["Category"],
   endpoints: (builder) => ({
     getallcategory: builder.query({
       query: () => ({
         url: "/category/all",
         methid: "GET",
+        providesTags: ["Category"]
       }),
     }),
     getsingleCategory: builder.query({
@@ -25,6 +27,7 @@ export const categoryApi = createApi({
         method: "POST",
         body: data,
       }),
+      invalidatesTags: ["Category"]
     }),
 
     deleteCategory: builder.mutation({
@@ -32,6 +35,7 @@ export const categoryApi = createApi({
         url: `/category/delete/${id}`,
         method: "DELETE",
       }),
+      invalidatesTags: ["Category"]
     }),
     updateCategory: builder.mutation({
       query: (data) => ({
@@ -39,6 +43,7 @@ export const categoryApi = createApi({
         method: "PUT",
         body: data.formData,
       }),
+      invalidatesTags: ["Category"]
     }),
   }),
 });

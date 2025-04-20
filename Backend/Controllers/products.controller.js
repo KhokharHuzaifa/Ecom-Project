@@ -44,41 +44,27 @@ export default class productsController {
         }
   }
   async getAllProducts(req, res, next) {
-     const {price,limit=4,page=1,category=''} = req.query
+     const {minPrice,maxPrice,limit=3,page=1,category=''} = req.query
     try {
-
-      console.log("req.query:", req.query);      
-
+      
       let query = {}
 
       const parsedLimit = parseInt(limit);
       const parsedPage = parseInt(page);
 
-      if(price){
-        query.price = {$regex: price.trim(), $options: "i"}
+      if(minPrice && maxPrice){
+        query.price ={ $gte: Number(minPrice), $lte: Number(maxPrice) };
       }
-
-      // if (category && mongoose.Types.ObjectId.isValid(category)) {
-      //   query.category = new mongoose.Types.ObjectId(category);
-      //   console.log("inside if condition...........");
-        
-      // }
 
       if (category) {
         if (mongoose.Types.ObjectId.isValid(category)) {
           query.category = new mongoose.Types.ObjectId(category);
-          console.log("Category ObjectId:", query.category);
         } else {
           console.log("Invalid category ID format");
         }
       }
 
       const skip = (parsedPage - 1) * parsedLimit
-
-      console.log("Final Query:", query);
-      
-
-
 
       const data = await productModel.find(query).skip(skip).limit(parsedLimit)
 

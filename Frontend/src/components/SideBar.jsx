@@ -1,6 +1,28 @@
 import React from "react";
 
 const SideBar = ({price,setPrice}) => {
+
+  const priceRanges = [
+    {id: 'all',label:'All Price',min: null,max: null},
+    {id: '1',label:'$0 - $100',min: 0,max: 100},
+    {id: '2',label:'$100 - $200',min: 100,max: 200},
+    {id: '3',label:'$200 - $300',min: 200,max: 300},
+    {id: '4',label:'$300 - $400',min: 300,max: 400},
+    {id: '5',label:'$400 - $500',min: 400,max: 500},
+  ]
+
+  const handlePriceChange = (prices)=>{
+    if (prices.id === 'all'){
+      setPrice(null)
+    }
+    else {
+      setPrice({
+        min:prices.min,
+        max:prices.max
+      })
+    }
+  }
+
   return (
     <>
       <div class="col-lg-3 col-md-4 ">
@@ -10,73 +32,24 @@ const SideBar = ({price,setPrice}) => {
         </h5>
         <div class="bg-light p-4 mb-30">
           <form>
-            <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+            {priceRanges.map((range)=>(
+              <div key={range.id} class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
               <input
-                type="checkbox"
+                type="radio"
+                name="price-range"
                 class="custom-control-input"
-                checked=""
-                id="price-all"
+                onChange={()=>handlePriceChange(range)}
+                checked={
+                  (range.id === 'all' && price === null) || 
+                  (price?.min === range.min && price?.max === range.max)
+                }
+                id={`price-${range.id}`}
               />
-              <label class="custom-control-label" for="price-all">
-                All Price
+              <label class="custom-control-label" for={`price-${range.id}`}>
+                {range.label}
               </label>
-              <span class="badge border font-weight-normal">1000</span>
             </div>
-            <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-              <input
-                type="checkbox"
-                class="custom-control-input"
-                id="price-1"
-              />
-              <label class="custom-control-label" for="price-1">
-                $0 - $100
-              </label>
-              <span class="badge border font-weight-normal">150</span>
-            </div>
-            <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-              <input
-                type="checkbox"
-                class="custom-control-input"
-                id="price-2"
-              />
-              <label class="custom-control-label" for="price-2">
-                $100 - $200
-              </label>
-              <span class="badge border font-weight-normal">295</span>
-            </div>
-            <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-              <input
-                type="checkbox"
-                class="custom-control-input"
-                id="price-3"
-              />
-              <label class="custom-control-label" for="price-3">
-                $200 - $300
-              </label>
-              <span class="badge border font-weight-normal">246</span>
-            </div>
-            <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-              <input
-                type="checkbox"
-                class="custom-control-input"
-                id="price-4"
-              />
-              <label class="custom-control-label" for="price-4">
-                $300 - $400
-              </label>
-              <span class="badge border font-weight-normal">145</span>
-            </div>
-            <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between">
-              <input
-                type="checkbox"
-                class="custom-control-input"
-                id="price-5"
-              />
-              <label class="custom-control-label" for="price-5">
-                $400 - $500
-              </label>
-              <span class="badge border font-weight-normal">168</span>
-            </div>
+            ))}
           </form>
         </div>
         {/* <!-- Price End --> */}
@@ -97,7 +70,6 @@ const SideBar = ({price,setPrice}) => {
               <label class="custom-control-label" for="price-all">
                 All Color
               </label>
-              <span class="badge border font-weight-normal">1000</span>
             </div>
             <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
               <input
@@ -108,7 +80,6 @@ const SideBar = ({price,setPrice}) => {
               <label class="custom-control-label" for="color-1">
                 Black
               </label>
-              <span class="badge border font-weight-normal">150</span>
             </div>
             <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
               <input
@@ -119,7 +90,6 @@ const SideBar = ({price,setPrice}) => {
               <label class="custom-control-label" for="color-2">
                 White
               </label>
-              <span class="badge border font-weight-normal">295</span>
             </div>
             <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
               <input
@@ -130,7 +100,6 @@ const SideBar = ({price,setPrice}) => {
               <label class="custom-control-label" for="color-3">
                 Red
               </label>
-              <span class="badge border font-weight-normal">246</span>
             </div>
             <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
               <input
@@ -141,7 +110,6 @@ const SideBar = ({price,setPrice}) => {
               <label class="custom-control-label" for="color-4">
                 Blue
               </label>
-              <span class="badge border font-weight-normal">145</span>
             </div>
             <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between">
               <input
@@ -152,7 +120,6 @@ const SideBar = ({price,setPrice}) => {
               <label class="custom-control-label" for="color-5">
                 Green
               </label>
-              <span class="badge border font-weight-normal">168</span>
             </div>
           </form>
         </div>
@@ -174,42 +141,36 @@ const SideBar = ({price,setPrice}) => {
               <label class="custom-control-label" for="size-all">
                 All Size
               </label>
-              <span class="badge border font-weight-normal">1000</span>
             </div>
             <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
               <input type="checkbox" class="custom-control-input" id="size-1" />
               <label class="custom-control-label" for="size-1">
                 XS
               </label>
-              <span class="badge border font-weight-normal">150</span>
             </div>
             <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
               <input type="checkbox" class="custom-control-input" id="size-2" />
               <label class="custom-control-label" for="size-2">
                 S
               </label>
-              <span class="badge border font-weight-normal">295</span>
             </div>
             <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
               <input type="checkbox" class="custom-control-input" id="size-3" />
               <label class="custom-control-label" for="size-3">
                 M
               </label>
-              <span class="badge border font-weight-normal">246</span>
             </div>
             <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
               <input type="checkbox" class="custom-control-input" id="size-4" />
               <label class="custom-control-label" for="size-4">
                 L
               </label>
-              <span class="badge border font-weight-normal">145</span>
             </div>
             <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between">
               <input type="checkbox" class="custom-control-input" id="size-5" />
               <label class="custom-control-label" for="size-5">
                 XL
               </label>
-              <span class="badge border font-weight-normal">168</span>
             </div>
           </form>
         </div>

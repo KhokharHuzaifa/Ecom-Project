@@ -1,40 +1,48 @@
 import React, { useEffect, useState } from "react";
 import { useGetallproductQuery } from "../redux/Api/productApi";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { addToCart } from "../redux/features/cartSlice";
 import { useDispatch } from "react-redux";
 
-const ShopProducts = ({price}) => {
-
+const ShopProducts = ({ price }) => {
+  const { id } = useParams();
+  const dispatch = useDispatch();  
   
   const [page, setPage] = React.useState(1);
-  const [limit, setLimit] = React.useState(4);
+  const [limit, setLimit] = React.useState(3);
   const [totalPages, setTotalPages] = React.useState(0);
-  const [product,setProduct] = useState([])
+  const [product, setProduct] = useState([]);
+  const { data, isLoading, error } = useGetallproductQuery({
+    price,
+    limit,
+    page,
+    category: id,
+  });
+
   
-
-
-
-  const { id } = useParams();
-  // const category
-  const { data, isLoading, error } = useGetallproductQuery({price,limit,page,category:id});
-  const dispatch = useDispatch()
-
-  console.log("data mens category..............",data && data.data);
+  const products = data?.data || [];
   
-
   useEffect(() => {
-    if (data && data.data) {
-      setProduct(data.data)
-      setTotalPages(data?.pages);
+    if (data) {
+      setTotalPages(data.pages || 0);
     }
-  }, [data,page,limit]);
+  }, [data]);
+  
+  const handleAddToCart = (prod) => {
+    dispatch(addToCart(prod));
+  };
 
-  const handleAddToCart = (prod)=>{
-      dispatch(addToCart(prod))
-    }
+  const handleLimitChange = (newLimit)=>{
+    setLimit(newLimit)
+    setPage(1)
+  }
 
-
+  const handlePageChange = (selectedPage) => {
+    setPage(selectedPage);
+  };
+  
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error.message}</div>;
   return (
     <>
       <div class="col-lg-9 col-md-8 ">
@@ -76,17 +84,26 @@ const ShopProducts = ({price}) => {
                     class="btn btn-sm btn-light dropdown-toggle"
                     data-toggle="dropdown"
                   >
-                    Showing
+                    Showing {limit}
                   </button>
                   <div class="dropdown-menu dropdown-menu-right">
-                    <a class="dropdown-item" href="#">
-                      10
+                    <a class="dropdown-item" onClick={(e)=>{
+                      e.preventDefault()
+                      handleLimitChange(3)
+                      }} href="#">
+                      3
                     </a>
-                    <a class="dropdown-item" href="#">
-                      20
+                    <a class="dropdown-item" onClick={(e)=>{
+                      e.preventDefault()
+                      handleLimitChange(6)
+                      }} href="#">
+                      6
                     </a>
-                    <a class="dropdown-item" href="#">
-                      30
+                    <a class="dropdown-item" onClick={(e)=>{
+                      e.preventDefault()
+                      handleLimitChange(9)
+                      }} href="#">
+                      9
                     </a>
                   </div>
                 </div>
@@ -95,101 +112,110 @@ const ShopProducts = ({price}) => {
           </div>
 
           {/* product card */}
-        {product.map((prod) => (
-          <div class="col-lg-4 col-md-6 col-sm-6 pb-1">
-            <div class="product-item bg-light mb-4">
-              <div class="product-img position-relative overflow-hidden">
-                <img
-                  class="img-fluid w-100"
-                  style={{
-                    height: "100%",
-                    height: "250px",
-                    objectFit: "cover",
-                  }}
-                  src={prod.productImage}
-                  alt="product image"
-                />
-                <div class="product-action">
-                  <a class="btn btn-outline-dark btn-square" onClick={()=>handleAddToCart(prod)}>
-                    <i class="fa fa-shopping-cart"></i>
-                  </a>
-                  <a class="btn btn-outline-dark btn-square" href="">
-                    <i class="far fa-heart"></i>
-                  </a>
-                  <a class="btn btn-outline-dark btn-square" href="">
-                    <i class="fa fa-sync-alt"></i>
-                  </a>
-                  <a class="btn btn-outline-dark btn-square" href="">
-                    <i class="fa fa-search"></i>
-                  </a>
+          {products.map((prod) => (
+            <div key={prod._id} class="col-lg-4 col-md-6 col-sm-6 pb-1">
+              <div class="product-item bg-light mb-4">
+                <div class="product-img position-relative overflow-hidden">
+                  <img
+                    class="img-fluid w-100"
+                    style={{
+                      height: "100%",
+                      height: "250px",
+                      objectFit: "cover",
+                    }}
+                    src={prod.productImage}
+                    alt="product image"
+                  />
+                  <div class="product-action">
+                    <a
+                      class="btn btn-outline-dark btn-square"
+                      onClick={() => handleAddToCart(prod)}
+                    >
+                      <i class="fa fa-shopping-cart"></i>
+                    </a>
+                    <a class="btn btn-outline-dark btn-square" href="">
+                      <i class="far fa-heart"></i>
+                    </a>
+                    <a class="btn btn-outline-dark btn-square" href="">
+                      <i class="fa fa-sync-alt"></i>
+                    </a>
+                    <a class="btn btn-outline-dark btn-square" href="">
+                      <i class="fa fa-search"></i>
+                    </a>
+                  </div>
                 </div>
-              </div>
-              <div class="text-center py-4">
-                <a
-                  class="h6 text-decoration-none text-truncate"
-                  href=""
-                  style={{
-                    whiteSpace: "nowrap",
-                    overflow: "hidden",
-                    textOverflow: "ellipsis",
-                    display: "block",
-                    width: "100%",
-                  }}
-                >
-                  {prod.productName}
-                </a>
-                <div class="d-flex align-items-center justify-content-center mt-2">
-                  <h5>${prod.price}</h5>
-                  {/* <h6 class="text-muted ml-2">
+                <div class="text-center py-4">
+                  <Link to={`/detail/${prod._id}`}
+                    class="h6 text-decoration-none text-truncate"
+                    style={{
+                      whiteSpace: "nowrap",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                      display: "block",
+                      width: "100%",
+                    }}
+                  >
+                    {prod.productName}
+                  </Link>
+                  <div class="d-flex align-items-center justify-content-center mt-2">
+                    <h5>${prod.price}</h5>
+                    {/* <h6 class="text-muted ml-2">
                     <del>$123.00</del>
                   </h6> */}
-                </div>
-                <div class="d-flex align-items-center justify-content-center mb-1">
-                  <small class="fa fa-star text-primary mr-1"></small>
-                  <small class="fa fa-star text-primary mr-1"></small>
-                  <small class="fa fa-star text-primary mr-1"></small>
-                  <small class="fa fa-star text-primary mr-1"></small>
-                  <small class="fa fa-star text-primary mr-1"></small>
-                  <small>(99)</small>
+                  </div>
+                  <div class="d-flex align-items-center justify-content-center mb-1">
+                    <small class="fa fa-star text-primary mr-1"></small>
+                    <small class="fa fa-star text-primary mr-1"></small>
+                    <small class="fa fa-star text-primary mr-1"></small>
+                    <small class="fa fa-star text-primary mr-1"></small>
+                    <small class="fa fa-star text-primary mr-1"></small>
+                    <small>(99)</small>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        ))
-      }
+          ))}
 
           {/* Pagination */}
-          <div class="col-12">
-            <nav>
-              <ul class="pagination justify-content-center">
-                <li class="page-item disabled">
-                  <a class="page-link" href="#">
-                    Previous
-                  </a>
+          {totalPages > 1 && (
+        <div className="my-4 d-flex justify-content-center">
+          <nav>
+            <ul className="pagination pagination-lg">
+              <li className={`page-item ${page === 1 ? 'disabled' : ''}`}>
+                <button 
+                  className="page-link" 
+                  onClick={() => handlePageChange(page - 1)}
+                >
+                  &laquo;
+                </button>
+              </li>
+              
+              {[...Array(totalPages)].map((_, idx) => (
+                <li 
+                  key={idx} 
+                  className={`page-item ${page === idx + 1 ? 'active' : ''}`}
+                >
+                  <button 
+                    className="page-link" 
+                    onClick={() => handlePageChange(idx + 1)}
+                  >
+                    {idx + 1}
+                  </button>
                 </li>
-                <li class="page-item active">
-                  <a class="page-link" href="#">
-                    1
-                  </a>
-                </li>
-                <li class="page-item">
-                  <a class="page-link" href="#">
-                    2
-                  </a>
-                </li>
-                <li class="page-item">
-                  <a class="page-link" href="#">
-                    3
-                  </a>
-                </li>
-                <li class="page-item">
-                  <a class="page-link" href="#">
-                    Next
-                  </a>
-                </li>
-              </ul>
-            </nav>
-          </div>
+              ))}
+              
+              <li className={`page-item ${page === totalPages ? 'disabled' : ''}`}>
+                <button 
+                  className="page-link" 
+                  onClick={() => handlePageChange(page + 1)}
+                >
+                  &raquo;
+                </button>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      )}
         </div>
       </div>
     </>

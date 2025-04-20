@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import ShopProducts from '../components/ShopProducts'
 import SideBar from '../components/SideBar'
 const Shop = () => {
-  const [price, setPrice] = React.useState("");
+  const [price, setPrice] = React.useState(null);
   return (
     <>
       <div class="container-fluid">

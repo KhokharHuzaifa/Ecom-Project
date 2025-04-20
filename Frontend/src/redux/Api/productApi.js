@@ -8,10 +8,19 @@ export const productApi = createApi({
   }),
   endpoints: (builder) => ({
     getallproduct: builder.query({
-      query: (data = {}) => ({
-        url: `/product/all?price=${data.price || ""}&limit=${data.limit || 4}&page=${data.page || 1}&category=${data.category || ""}`,
-        method: "GET",
-      }),
+      query: (data = {}) => {
+        const minPrice = data.price?.min ?? '';
+        const maxPrice = data.price?.max ?? '';
+        return {
+          url: `/product/all?${new URLSearchParams({
+            minPrice,
+            maxPrice,
+            limit: data.limit || 3,
+            page: data.page || 1,
+            category: data.category || ''
+          }).toString()}`,
+          method: "GET",
+        }},
     }),
     getsingleproduct: builder.query({
       query: (id) => ({
