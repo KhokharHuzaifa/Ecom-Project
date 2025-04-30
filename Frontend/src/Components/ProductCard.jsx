@@ -9,6 +9,7 @@ const ProductCard = ({ product }) => {
   const handleAddToCart = (prod)=>{
     dispatch(addToCart(prod))
   }
+  
   return (
     <>
       <div className="col-lg-3 col-md-4 col-sm-6 pb-1">

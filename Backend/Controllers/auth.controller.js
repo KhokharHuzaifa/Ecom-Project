@@ -10,7 +10,7 @@ export const signup = async (req, res, next) => {
         const user = req.body
         const uploadResult = await cloudinary.uploader.upload(user.avatar, { folder: 'MernCart_Project' })
         .catch((error) => {
-            next(error)
+            next(new Error("Failed to upload you image"))
         });
         
         if (uploadResult) {
@@ -23,7 +23,7 @@ export const signup = async (req, res, next) => {
             })
         }
     } catch (error) {
-        next(error)
+        next(new Error("There is some Error in Database.Try Again"))
     }
 }
 
@@ -47,16 +47,16 @@ export const login = async (req, res, next) => {
 
         try {
             res.cookie("JWT", jwt_token, { maxAge: 9000000, httpOnly: true }).json({
-                message: "LogIn successfully Redirecting you please wait",
+                message: "LogIn successfully Redirecting you, please wait",
                 validUser,
                 success:true
             })
         } catch (error) {
-            next(error)
+            next(new Error("There is some Error in Database.Try Again"))
         }
 
     } catch (error) {
-        next(error)
+        next(new Error("TNetwork Error.Try Again"))
     }
 }
 
@@ -66,6 +66,6 @@ export const logout = async (req, res, next) => {
             message: "Logout successfully",
         })
     } catch (error) {
-     next(error)   
+     next(new Error("Failed to Logout"))   
     }
 }

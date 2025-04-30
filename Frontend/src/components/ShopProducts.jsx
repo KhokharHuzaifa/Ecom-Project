@@ -31,18 +31,20 @@ const ShopProducts = ({ price }) => {
   const handleAddToCart = (prod) => {
     dispatch(addToCart(prod));
   };
-
+  
   const handleLimitChange = (newLimit)=>{
     setLimit(newLimit)
     setPage(1)
   }
-
+  
   const handlePageChange = (selectedPage) => {
     setPage(selectedPage);
   };
   
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <div style={{textAlign:"center",marginInline:"150px",fontWeight:"bolder"}}>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
+
+ 
   return (
     <>
       <div class="col-lg-9 col-md-8 ">
@@ -159,9 +161,6 @@ const ShopProducts = ({ price }) => {
                   </Link>
                   <div class="d-flex align-items-center justify-content-center mt-2">
                     <h5>${prod.price}</h5>
-                    {/* <h6 class="text-muted ml-2">
-                    <del>$123.00</del>
-                  </h6> */}
                   </div>
                   <div class="d-flex align-items-center justify-content-center mb-1">
                     <small class="fa fa-star text-primary mr-1"></small>

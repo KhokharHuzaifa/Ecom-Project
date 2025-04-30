@@ -10,11 +10,7 @@ const Login = () => {
   const {isAuthenticated} = useSelector((v)=>v.auth)
   const [login, { isLoading }] = useLoginMutation()
   const navigate = useNavigate()
-  const [apiMsg, setApiMsg] = useState(false)
-
-if(isAuthenticated){
-  return <Navigate to={"/"}/>
-}
+  const [apiMsg, setApiMsg] = useState("")
 
   const { handleChange, handleSubmit, values, handleBlur, touched, errors } = useFormik({
     initialValues: {
@@ -26,11 +22,14 @@ if(isAuthenticated){
       password: Yup.string().required('Password is required').trim(),
   }),
     onSubmit: async (values) => {
-      const res = await login(values).unwrap()
-      setApiMsg(res)
-      navigate('/')
+      const user = await login(values).unwrap()      
+      setApiMsg(user)
     },
   });
+
+  if(isAuthenticated){
+    return <Navigate to={"/"}/>
+  }
 
   const passwordToggle = () => {
     const typedPassword = document.getElementById("passowrdField");
@@ -51,8 +50,7 @@ if(isAuthenticated){
               <b> {apiMsg.message}</b>
             </div>
           }
-          {
-            isLoading ? <h1>Loading...</h1> : <form onSubmit={handleSubmit}>
+             <form onSubmit={handleSubmit}>
               <div className="control-group mt-4">
                 <input type="email" name='email' className="form-control" id="email" placeholder="Your Email" onChange={handleChange} onBlur={handleBlur} value={values.email} />
                 <span className='text-danger float-left ms-1 mt-2 mb-1'>{touched.email && errors.email}</span>
@@ -66,13 +64,15 @@ if(isAuthenticated){
               <input type="checkbox" id='showpass' className='ms-1 mt-3' onClick={passwordToggle}/>
               </div>
               <div>
-                <button className="btn btn-primary py-2 px-4 mt-2 mb-3" type="submit">Login</button>
+                {
+                  isLoading ? <button className="btn btn-primary py-2 px-4 mt-2 mb-3" type="submit">Loading..."</button> :  <button className="btn btn-primary py-2 px-4 mt-2 mb-3" type="submit">Login</button>
+                } 
               </div>
               <div >
                 <Link to={'/register'}><span className='text-dark'>Dont have an account?</span></Link>
               </div>
             </form>
-          }
+          
         </div>
       </div>
     </center>

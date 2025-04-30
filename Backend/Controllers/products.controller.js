@@ -44,7 +44,7 @@ export default class productsController {
         }
   }
   async getAllProducts(req, res, next) {
-     const {minPrice,maxPrice,limit=3,page=1,category=''} = req.query
+     const {minPrice,maxPrice,limit,page=1,category=''} = req.query
     try {
       
       let query = {}

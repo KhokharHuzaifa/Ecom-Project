@@ -20,23 +20,14 @@ import { useSelector } from "react-redux";
 import { useGetMeQuery } from "../redux/Api/authApi";
 
 export default function OrderHistoryPage() {
-  const [openRows, setOpenRows] = useState({}); // Track open state for each row
+  const [openRows, setOpenRows] = useState({}); 
   const [orderdata, setOrderData] = useState([]);
-  // const {user} = useSelector((v)=>v.auth.user)
   const { data, isLoading, error } = useOrderDataQuery();
   const {data:me} = useGetMeQuery()
-  console.log("MEEEEEEEEEEEEEEEEEEEEEEEEEEE",me && me.user._id);
   const loggedInUserId = me && me.user._id
   const userOrders = data && data?.data.filter((order) => order.userId === loggedInUserId);
 
-  console.log("user own orders..........",userOrders);
-  
-console.log("orderDetailssssssssssssssssss",data && data.data[0].email);
-console.log("orderDetailssssssssssssssssss",data && data.data[0].userId);
-
-  console.log("Order Detail Data.............", `Eamil: ${data && data?.data.email} and UserId: ${data && data?.data.userId}`);
-  // console.log("USER ID...............",user._id);
-  
+  console.log("Order Detail Data.............", `Eamil: ${data && data?.data.email} and UserId: ${data && data?.data.userId}`);  
 
   useEffect(() => {
     if (data && data?.data) {
@@ -60,13 +51,11 @@ console.log("orderDetailssssssssssssssssss",data && data.data[0].userId);
     }
   }, [data]);
 
-  console.log("Order Data.............", orderdata);
 
-  // Toggle open state for a specific row
   const toggleRow = (paymentId) => {
     setOpenRows((prevOpenRows) => ({
       ...prevOpenRows,
-      [paymentId]: !prevOpenRows[paymentId], // Toggle the state for the specific row
+      [paymentId]: !prevOpenRows[paymentId],
     }));
   };
 
@@ -85,10 +74,6 @@ console.log("orderDetailssssssssssssssssss",data && data.data[0].userId);
             <ArrowBackIosIcon />
           </Link>
           <h3 style={{ marginTop: "6px" }}>Order History</h3>
-        </div>
-
-        <div>
-          {/* data && data?.data */}
         </div>
 
         <TableContainer component={Paper}>

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, Navigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { useGetMeQuery } from '../redux/Api/authApi'
 import { useLazyLogoutQuery } from '../redux/Api/authApi'
@@ -19,6 +19,7 @@ const Navbar = () => {
   
 
   const handleLogout = async () => {
+    navigate("/")
    await logout();
   }
   
@@ -43,14 +44,17 @@ const Navbar = () => {
             <div className="btn-group">
               <button className=' btn dropdown-toggle' style={{border:'none', outline:'none'}} data-toggle="dropdown"> <img src={user?.user?.avatar} width={20}/> <b>Welcome!</b> {user?.user?.username}</button>
                 <div className="dropdown-menu dropdown-menu-right">
-                <button className="dropdown-item" >Profile</button>
                 {
                   user?.user?.roles === 'admin' ? 
                   <Link to={'/admin'}><button className="dropdown-item" >Dashboard</button></Link>
                   :
+                  <>
                   <Link to={'/customer'}><button className="dropdown-item" >Dashboard</button></Link>
+                  <button className="dropdown-item" >Profile</button>                  
+                  <Link to={'/order'}><button className="dropdown-item" >Orders</button></Link>
+                  </>
                 }
-                <Link to={'/order'}><button className="dropdown-item" >Orders</button></Link>
+                
                   
                   <button type="button" className='btn btn-light dropdown-item' onClick={handleLogout}>logout</button>
                 </div>

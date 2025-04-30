@@ -143,9 +143,7 @@ const Home = () => {
           <span className="bg-secondary pr-3">Recent Products</span>
         </h2>
         <div className="row px-xl-5">
-        {Products?.data
-            
-            .map((prod) => (
+        {Products?.data?.map((prod) => (
               <ProductCard key={prod.id} product={prod} />
             ))}
          

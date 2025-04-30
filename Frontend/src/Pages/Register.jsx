@@ -9,10 +9,6 @@ const Register = () => {
   const {isAuthenticated} = useSelector((v)=>v.auth)
   const [register, { isLoading, error, data }] = useRegisterMutation()
   const [apiMsg, setApiMsg] = useState(false)
-
-  if(isAuthenticated){
-    return <Navigate to={"/"}/>
-  }
   
   const { handleChange, handleSubmit, values, handleBlur, setFieldValue, touched, errors } = useFormik({
     initialValues: {
@@ -34,11 +30,8 @@ const Register = () => {
       phoneNumber: Yup.string().matches(/^((\+92)?(0092)?(92)?(0)?)(3)([0-9]{9})$/, 'Phone number not match 03xxxxxxxxx or +92xxxxxxxxxx').required('Phone number is required').trim(),
   }),
     onSubmit: async (values) => {
-      console.log("User...",values);
-      
-      const res = await register(values).unwrap()
-      console.log("response.............",res);
-      
+
+      const res = await register(values).unwrap()      
       setApiMsg(res)
     },
   });
@@ -64,6 +57,10 @@ const Register = () => {
     } else {
       typedPassword.type = "password";
     }
+  }
+
+  if(isAuthenticated){
+    return <Navigate to={"/"}/>
   }
 
   return (
@@ -113,7 +110,9 @@ const Register = () => {
               <img style={{ objectFit: 'cover' }} src={preview ? preview : `https://png.pngtree.com/png-vector/20191101/ourmid/pngtree-businessman-avatar-icon-flat-style-png-image_1917273.jpg`} width={100} alt="" value={values.avatar} />
             </div>
             <div>
-              <button className="btn btn-primary py-2 px-4 mt-4 mb-3" type="submit">Register</button>
+            {
+                  isLoading ? <button className="btn btn-primary py-2 px-4 mt-4 mb-3" type="submit">Loading..."</button> :  <button className="btn btn-primary py-2 px-4 mt-4 mb-3" type="submit">Register</button>
+                }
             </div>
             <div >
               <Link to={'/login'}><span className='text-dark'>Already have an account?</span></Link>

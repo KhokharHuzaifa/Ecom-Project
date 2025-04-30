@@ -11,17 +11,22 @@ export const productApi = createApi({
       query: (data = {}) => {
         const minPrice = data.price?.min ?? '';
         const maxPrice = data.price?.max ?? '';
+    
+        const params = new URLSearchParams();
+    
+        if (minPrice !== '') params.append('minPrice', minPrice);
+        if (maxPrice !== '') params.append('maxPrice', maxPrice);
+        if (data.page) params.append('page', data.page);
+        if (data.category) params.append('category', data.category);
+        if (data.limit !== undefined) params.append('limit', data.limit); 
+        
         return {
-          url: `/product/all?${new URLSearchParams({
-            minPrice,
-            maxPrice,
-            limit: data.limit || 3,
-            page: data.page || 1,
-            category: data.category || ''
-          }).toString()}`,
+          url: `/product/all?${params.toString()}`,
           method: "GET",
-        }},
+        };
+      },
     }),
+    
     getsingleproduct: builder.query({
       query: (id) => ({
         url: `/product/${id}`,
