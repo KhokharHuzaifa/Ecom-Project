@@ -27,7 +27,6 @@ import OrderHistoryPage from './components/OrderHistoryPage'
 
 const App = () => {
   const {user,isAuthenticated} = useSelector((v)=>v.auth)
-  console.log(user);
   
   const router = createBrowserRouter(
     createRoutesFromElements(
@@ -56,8 +55,9 @@ const App = () => {
           <Route path='/customer' element={<Customer role='customer'/>}>
           </Route>
           {
-            user && user.user?.roles == "customer" ? <Route path="/order" element={<OrderHistoryPage />} /> : ""
+            // user && user?.user?.roles == "customer" ? <Route path="/order" element={<OrderHistoryPage />} /> : ""
           }
+          <Route path="/order" element={<OrderHistoryPage />} />
           
 
       </Route>

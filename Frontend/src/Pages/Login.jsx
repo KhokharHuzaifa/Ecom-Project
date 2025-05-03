@@ -24,12 +24,9 @@ const Login = () => {
     onSubmit: async (values) => {
       const user = await login(values).unwrap()      
       setApiMsg(user)
+      navigate ("/")
     },
   });
-
-  if(isAuthenticated){
-    return <Navigate to={"/"}/>
-  }
 
   const passwordToggle = () => {
     const typedPassword = document.getElementById("passowrdField");
@@ -64,9 +61,7 @@ const Login = () => {
               <input type="checkbox" id='showpass' className='ms-1 mt-3' onClick={passwordToggle}/>
               </div>
               <div>
-                {
-                  isLoading ? <button className="btn btn-primary py-2 px-4 mt-2 mb-3" type="submit">Loading..."</button> :  <button className="btn btn-primary py-2 px-4 mt-2 mb-3" type="submit">Login</button>
-                } 
+                <button className="btn btn-primary py-2 px-4 mt-2 mb-3" type="submit">Login</button>                
               </div>
               <div >
                 <Link to={'/register'}><span className='text-dark'>Dont have an account?</span></Link>

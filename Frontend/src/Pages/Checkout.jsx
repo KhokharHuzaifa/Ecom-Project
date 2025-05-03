@@ -24,7 +24,6 @@ const Checkout = () => {
   const handlePayment = async (cart) => {
     const stripe = await loadStripe('pk_test_51QmGhxF1ftSQqMNIu4xQB6ytzdSvDoLqoN8tREUr1fp2J2hNRlbffXqfsHCB1M1jb9hcbWkrOt3TwqkwkZjwngTP00sUywGEla');
     const sessionJob = await makePayment(cart).unwrap()
-    console.log(",,,,,,,,,,,,,,,,,,,,,,,,,,,,",sessionJob);
     
     const result = stripe.redirectToCheckout({
       sessionId : sessionJob.id
@@ -356,6 +355,7 @@ const Checkout = () => {
                 <button
                   type="submit"
                   className="btn btn-block btn-primary font-weight-bold py-3"
+                  onClick={()=>handlePayment(cart)}
                 >
                   Place Order
                 </button>
@@ -363,7 +363,6 @@ const Checkout = () => {
             </div>
           </div>
         </form>
-        <button onClick={()=>handlePayment(cart)}>Pay Now</button>
       </div>
       {/* <!-- Checkout End --> */}
     </>

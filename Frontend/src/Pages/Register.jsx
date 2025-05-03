@@ -4,6 +4,7 @@ import { Link, Navigate } from 'react-router-dom'
 import { useState } from 'react';
 import * as Yup from 'yup';
 import { useSelector } from 'react-redux';
+import { BounceLoader } from "react-spinners";
 
 const Register = () => {
   const {isAuthenticated} = useSelector((v)=>v.auth)
@@ -21,9 +22,9 @@ const Register = () => {
       avatar: ''
     },
     validationSchema: Yup.object({
-      firstname: Yup.string().matches(/^[A-Za-z ]*$/, 'Please enter valid first name').min(5, 'Minimum 5 letters').max(25, 'Maximum 25 letters').required('First Name is required').trim(),
-      lastname: Yup.string().matches(/^[A-Za-z ]*$/, 'Please enter valid last name').min(5, 'Minimum 5 letters').max(25, 'Maximum 25 letters').required('Last Name is required').trim(),
-      username: Yup.string().matches(/^[a-zA-Z0-9]+([._]?[a-zA-Z0-9]+)*$/, 'Please enter valid User name').min(5, 'Minimum 5 letters').max(25, 'Maximum 25 letters').required('User Name is required').trim(),
+      firstname: Yup.string().matches(/^[A-Za-z ]*$/, 'Please enter valid first name').max(25, 'Maximum 25 letters').required('First Name is required').trim(),
+      lastname: Yup.string().matches(/^[A-Za-z ]*$/, 'Please enter valid last name').max(25, 'Maximum 25 letters').required('Last Name is required').trim(),
+      username: Yup.string().matches(/^[a-zA-Z0-9]+([._]?[a-zA-Z0-9]+)*$/, 'Please enter valid User name').max(25, 'Maximum 25 letters').required('User Name is required').trim(),
       email: Yup.string().matches(/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/, 'Please enter a valid email').required('Email is required').trim(),
       password: Yup.string().required('Password is required').trim(),
       // password: Yup.string().matches(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/, 'Minimum eight characters, at least one letter, one number and one special character').required('Password is required').trim(),
@@ -62,6 +63,7 @@ const Register = () => {
   if(isAuthenticated){
     return <Navigate to={"/"}/>
   }
+  
 
   return (
     <center>
@@ -74,7 +76,8 @@ const Register = () => {
             </div>
           }
           {
-            isLoading? <h1 className='mt-4'>Loading...</h1> : <form onSubmit={handleSubmit}>
+            isLoading? <BounceLoader color="#ffcf00"
+            size={100} /> : <form onSubmit={handleSubmit}>
             <div className="control-group mt-4">
               <input type="text" name='firstname' className="form-control" placeholder="First Name" onChange={handleChange} onBlur={handleBlur} value={values.firstname} />
               <span className='text-danger float-left ms-1 mt-2 mb-1'>{touched.firstname && errors.firstname}</span>
