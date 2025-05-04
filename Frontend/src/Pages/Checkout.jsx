@@ -4,40 +4,46 @@ import Breadcrumb from "../components/Breadcrumb";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useSelector } from "react-redux";
-import {loadStripe} from '@stripe/stripe-js';
+import { loadStripe } from "@stripe/stripe-js";
 import { useMakePaymentMutation } from "../redux/Api/PaymentApi";
+import { useGetMeQuery } from "../redux/Api/authApi";
 const Checkout = () => {
   const { cart } = useSelector((v) => v.cart);
-  const [makePayment,{isLoading}] = useMakePaymentMutation()
+  const [makePayment, { isLoading }] = useMakePaymentMutation();
 
+  const { data } = useGetMeQuery();
 
-  const [total,setTotal] = useState(0)
-  const [subTotal,setSubTotal] = useState(0)
-  const [shipping,setShipping] = useState(10)
+  console.log("user data..........", data && data.user.email);
 
-  useEffect(()=>{
-    const calculateSubtotal = cart.reduce((acc,item)=>acc + item.price * item.quantity,0)
-    setSubTotal(calculateSubtotal)
-    setTotal(calculateSubtotal + shipping)
-  },[cart,shipping])
+  const [total, setTotal] = useState(0);
+  const [subTotal, setSubTotal] = useState(0);
+  const [shipping, setShipping] = useState(10);
+
+  useEffect(() => {
+    const calculateSubtotal = cart.reduce(
+      (acc, item) => acc + item.price * item.quantity,
+      0
+    );
+    setSubTotal(calculateSubtotal);
+    setTotal(calculateSubtotal + shipping);
+  }, [cart, shipping]);
 
   const handlePayment = async (cart) => {
-    const stripe = await loadStripe('pk_test_51QmGhxF1ftSQqMNIu4xQB6ytzdSvDoLqoN8tREUr1fp2J2hNRlbffXqfsHCB1M1jb9hcbWkrOt3TwqkwkZjwngTP00sUywGEla');
-    const sessionJob = await makePayment(cart).unwrap()
-    
+    const stripe = await loadStripe(
+      "pk_test_51QmGhxF1ftSQqMNIu4xQB6ytzdSvDoLqoN8tREUr1fp2J2hNRlbffXqfsHCB1M1jb9hcbWkrOt3TwqkwkZjwngTP00sUywGEla"
+    );
+    const sessionJob = await makePayment(cart).unwrap();
+
     const result = stripe.redirectToCheckout({
-      sessionId : sessionJob.id
-    })
+      sessionId: sessionJob.id,
+    });
 
-    if(result.error) {
-      console.log("eeeeeeeeeeerrrrrrrrrrrrrooooooooorrrrrrrrr",result.error);
-      
+    if (result.error) {
+      console.log("eeeeeeeeeeerrrrrrrrrrrrrooooooooorrrrrrrrr", result.error);
     }
-    
-  }
+  };
 
-  const { handleChange, handleSubmit, values, handleBlur, touched, errors } =
-
+  const { handleChange, handleSubmit, values,setValues, handleBlur, touched, errors } =
     useFormik({
       initialValues: {
         fname: "",
@@ -52,21 +58,6 @@ const Checkout = () => {
         zipCode: "",
       },
       validationSchema: Yup.object({
-        fname: Yup.string().required("required"),
-        lname: Yup.string().required("required"),
-        phoneNo: Yup.string()
-          .matches(
-            /^(\+?\d{1,3})?[-.\s]?(\(?\d{3}\)?)[-.\s]?\d{3}[-.\s]?\d{4}$/,
-            "Phone number is not valid"
-          )
-          .required("Phone number is required"),
-        email: Yup.string()
-          .matches(
-            /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
-            "Please enter a valid email"
-          )
-          .required("Email is required")
-          .trim(),
         address1: Yup.string()
           .max(300, "Minimum 300 required")
           .required("required"),
@@ -91,6 +82,18 @@ const Checkout = () => {
       },
     });
 
+    useEffect(() => {
+      if (data?.user) {
+        setValues({
+          ...values,
+          fname: data.user.firstname || '',
+          lname: data.user.lastname || '',
+          email: data.user.email || '',
+          phoneNo: data.user.phoneNumber || '',
+        });
+      }
+    }, [data]);
+
   return (
     <>
       {/* <!-- Breadcrumb Start --> */}
@@ -112,45 +115,30 @@ const Checkout = () => {
                     <input
                       className="form-control"
                       name="fname"
-                      onChange={handleChange}
-                      onBlur={handleBlur}
+                      readOnly
                       value={values.fname}
                       type="text"
-                      placeholder="John"
                     />
-                    <span className="text-danger float-left ms-1 mt-2 mb-1">
-                      {touched.fname && errors.fname}
-                    </span>
                   </div>
                   <div className="col-md-6 form-group">
                     <label>Last Name</label>
                     <input
                       className="form-control"
                       name="lname"
-                      onChange={handleChange}
-                      onBlur={handleBlur}
+                      readOnly
                       value={values.lname}
                       type="text"
-                      placeholder="Doe"
                     />
-                    <span className="text-danger float-left ms-1 mt-2 mb-1">
-                      {touched.lname && errors.lname}
-                    </span>
                   </div>
                   <div className="col-md-6 form-group">
                     <label>E-mail</label>
                     <input
                       className="form-control"
                       type="text"
+                      readOnly
                       name="email"
-                      onChange={handleChange}
-                      onBlur={handleBlur}
                       value={values.email}
-                      placeholder="example@email.com"
                     />
-                    <span className="text-danger float-left ms-1 mt-2 mb-1">
-                      {touched.email && errors.email}
-                    </span>
                   </div>
                   <div className="col-md-6 form-group">
                     <label>Mobile No</label>
@@ -158,14 +146,9 @@ const Checkout = () => {
                       className="form-control"
                       type="text"
                       name="phoneNo"
-                      onChange={handleChange}
-                      onBlur={handleBlur}
+                      readOnly
                       value={values.phoneNo}
-                      placeholder="+123 456 789"
                     />
-                    <span className="text-danger float-left ms-1 mt-2 mb-1">
-                      {touched.phoneNo && errors.phoneNo}
-                    </span>
                   </div>
                   <div className="col-md-6 form-group">
                     <label>Address Line 1</label>
@@ -286,7 +269,12 @@ const Checkout = () => {
                   {cart &&
                     cart.map((prod) => (
                       <div className="d-flex justify-content-between">
-                        <p>{prod.productName.length > 20 ? prod.productName.slice(0, 20) + '...' : prod.productName} * <strong>{prod.quantity}</strong></p>
+                        <p>
+                          {prod.productName.length > 20
+                            ? prod.productName.slice(0, 20) + "..."
+                            : prod.productName}{" "}
+                          * <strong>{prod.quantity}</strong>
+                        </p>
                         <p>${prod.price * prod.quantity}</p>
                       </div>
                     ))}
@@ -355,7 +343,7 @@ const Checkout = () => {
                 <button
                   type="submit"
                   className="btn btn-block btn-primary font-weight-bold py-3"
-                  onClick={()=>handlePayment(cart)}
+                  onClick={() => handlePayment(cart)}
                 >
                   Place Order
                 </button>

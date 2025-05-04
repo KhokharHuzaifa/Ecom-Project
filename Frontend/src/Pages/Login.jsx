@@ -24,7 +24,7 @@ const Login = () => {
     onSubmit: async (values) => {
       const user = await login(values).unwrap()      
       setApiMsg(user)
-      navigate ("/")
+      user.success == true && navigate ("/")
     },
   });
 

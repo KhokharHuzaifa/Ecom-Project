@@ -28,8 +28,8 @@ const SideNavigation = () => {
               </> 
               : 
               <>
-              <Link to={'/customer/checkout'}><li class="list-group-item">Checkout Details</li></Link>
-              <Link to={'/customer/cart'}><li class="list-group-item">Cart Items</li></Link>
+              <Link to={'/checkout'}><li class="list-group-item">Checkout Details</li></Link>
+              <Link to={'/cart'}><li class="list-group-item">Cart Items</li></Link>
               
               </>
             }

@@ -5,6 +5,8 @@ import { v2 as cloudinary } from 'cloudinary';
 import 'dotenv/config'
 
 export const signup = async (req, res, next) => {
+    console.log("before try body..........",req.body);
+    
     try {
         
         const user = req.body
@@ -16,7 +18,10 @@ export const signup = async (req, res, next) => {
         if (uploadResult) {
             user.avatar = uploadResult.secure_url
             user.password = await bcrypt.hash(user.password, 10)
-            await userModel.create(user)
+            let u = await userModel.create(user)
+
+            console.log("After creation.........",u);
+            
             res.json({
                 success: true,
                 message: "SignUp successfully"

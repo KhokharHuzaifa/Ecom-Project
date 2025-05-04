@@ -1,12 +1,18 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { useGetMeQuery } from '../redux/Api/authApi'
 
 const OrderTotal = () => {
     const {cart} = useSelector((v)=>v.cart)
     const [subTotal,setSubTotal] = useState(0)
     const [Total,setTotal] = useState(0)
     const [Shipping,setShipping] = useState(160)
+
+    const {data} = useGetMeQuery()
+
+    console.log("user data..........",data && data.success);
+    
 
     useEffect(()=>{
         const calculateSubTotal = cart.reduce((acc,item)=>acc + item.quantity * item.price,0)
@@ -43,7 +49,13 @@ const OrderTotal = () => {
                             <h5>Total</h5>
                             <h5>${Total.toFixed(2)}</h5>
                         </div>
-                        <Link to={'/checkout'}><button className="btn btn-block btn-primary font-weight-bold my-3 py-3">Proceed To Checkout</button></Link>
+                        {
+                            data && (data.success == true) ?    <Link to={'/checkout'}><button className="btn btn-block btn-primary font-weight-bold my-3 py-3">Proceed To Checkout</button></Link> : <>
+                            <button disabled className="btn btn-block btn-primary font-weight-bold my-3 py-3">Proceed To Checkout</button>
+                            <div style={{textAlign:"center"}}>Login to Proceed for checkout</div>
+                            </>
+                        }
+                        
                     </div>
                 </div>
             </div>  
