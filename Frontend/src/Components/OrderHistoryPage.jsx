@@ -27,26 +27,26 @@ export default function OrderHistoryPage() {
   const { data: me } = useGetMeQuery();
   const [hasOrders, setHasOrders] = useState(false);
 
-  const queryClient = new QueryClient();
 
-  const { data, isLoading, error, refetch } = useOrderDataQuery(undefined, {
-    refetchOnMount: true,
-    refetchOnReconnect: true,
-    cacheTime: 0,
-  });
+  const { data, isLoading, error, refetch } = useOrderDataQuery()
+  // const { data, isLoading, error, refetch } = useOrderDataQuery(undefined, {
+  //   skip: !me?.user?._id,
+  //  refetchOnMountOrArgChange: true,
+  // });
+  
 
-  useEffect(() => {
-    queryClient.removeQueries("orderData");
-    refetch();
-  }, [me?.user?._id, queryClient, refetch]);
-
+  
+  console.log("USER ORDER HISTORY>>>>>>>>>>>>..",data);
+  
+//   useEffect(() => {
+//   if (me?.user?._id && !isLoading && data) {
+//     refetch();
+//   }
+// }, [me?.user?._id, data, isLoading, refetch]);
+  
   useEffect(() => {
     if (data && data?.data && me?.user?._id) {
-      const loggedInUserId = me.user._id;
-      const userOrders = data.data.filter(
-        (order) => order.userId === loggedInUserId
-      );
-
+      const userOrders = data?.data
       setOrderData(
         userOrders.map((v) => ({
           payment_Id: v.paymentDetails.paymentId,
@@ -90,14 +90,33 @@ export default function OrderHistoryPage() {
               style={{
                 margin: "15px",
                 display: "flex",
+                justifyContent:"space-between",
                 alignItems: "center",
                 cursor: "pointer",
               }}
             >
+              <div style={{
+                display:"flex",
+                alignItems: "center",
+                cursor: "pointer",
+              }}>
               <Link to={"/"}>
                 <ArrowBackIosIcon />
               </Link>
               <h3 style={{ marginTop: "6px" }}>Order History</h3>
+
+              </div>
+
+<button style={{
+    backgroundColor: "#ffcf00",  
+    color: "#333",             
+    padding: "10px 20px",
+    border: "none",
+    borderRadius: "4px",
+    fontWeight: "500",
+    cursor: "pointer",
+    fontSize: "16px",
+  }} onClick={() => refetch()}>Refresh Orders</button>
             </div>
 
             {hasOrders ? (

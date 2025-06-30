@@ -7,6 +7,7 @@ export const paymentApi = createApi({
     credentials: "include",
     mode: "cors",
   }),
+  tagTypes: ['orders'],
   endpoints: (builder) => ({
     makePayment: builder.mutation({
       query: (data) => ({
@@ -14,6 +15,7 @@ export const paymentApi = createApi({
         method: "POST",
         body: data,
       }),
+      invalidatesTags: ['orders'] 
     }),
   }),
 });

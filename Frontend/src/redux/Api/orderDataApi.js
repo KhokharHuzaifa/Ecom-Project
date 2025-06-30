@@ -14,7 +14,7 @@ export const orderDataApi = createApi({
         url:"/order-list",
         method : "GET"
       }),
-      invalidatesTags: ['orders']
+      providesTags: ['orders']
     })
   }),
 });

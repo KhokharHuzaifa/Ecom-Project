@@ -5,14 +5,14 @@ import { v2 as cloudinary } from 'cloudinary';
 import 'dotenv/config'
 
 export const signup = async (req, res, next) => {
-    console.log("before try body..........",req.body);
     
     try {
         
         const user = req.body
-        const uploadResult = await cloudinary.uploader.upload(user.avatar, { folder: 'MernCart_Project' })
+        const uploadResult = await cloudinary.uploader.upload(user.avatar, { folder: 'e-commerece-app' })
         .catch((error) => {
-            next(new Error("Failed to upload you image"))
+            return null
+            // next(new Error("Failed to upload you image"))
         });
         
         if (uploadResult) {
@@ -24,10 +24,13 @@ export const signup = async (req, res, next) => {
             
             res.json({
                 success: true,
-                message: "SignUp successfully"
+                message: "SignUp successfully",
+                u
             })
         }
     } catch (error) {
+        console.log("ERROR:>>>>>>>>",error);
+        
         next(new Error("There is some Error in Database.Try Again"))
     }
 }

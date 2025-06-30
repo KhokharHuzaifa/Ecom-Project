@@ -6,12 +6,10 @@ const userSchema = new Schema({
     firstname: {
         type: String,
         required: [true, 'Provide First Name'],
-        minLength: [5, "First Name should have atleast 5 chars"],
     },
     lastname: {
         type: String,
         required: [true, 'Provide First Name'],
-        minLength: [5, "Last Name should have atleast 5 chars"],
     },
     username: {
         type: String,

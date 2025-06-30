@@ -26,7 +26,7 @@ cloudinary.config({
     api_key: process.env.API_KEY, 
     api_secret: process.env.API_SECRET
 });
-app.post('/webhook', express.raw({ type: 'application/json' }), webhooks); 
+app.post('/webhooks', express.raw({ type: 'application/json' }), webhooks); 
 
 
 // cors config

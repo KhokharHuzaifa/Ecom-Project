@@ -8,7 +8,7 @@ const ProductCard = ({ product }) => {
 
   const handleAddToCart = (prod)=>{
     dispatch(addToCart(prod))
-  }
+  }  
   
   return (
     <>

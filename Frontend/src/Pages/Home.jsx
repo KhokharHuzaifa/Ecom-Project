@@ -2,12 +2,16 @@ import React from "react";
 import Carousel from "../components/Carousel";
 import Vendor from "../components/Vendor";
 import { useGetallcategoryQuery } from "../redux/Api/categoryApi";
-import ProductCard from "../components/ProductCard";
 import { useGetallproductQuery } from "../redux/Api/productApi";
 import { Link } from "react-router-dom";
+import ProductCard from "../Components/ProductCard";
 const Home = () => {
   const { data: category } = useGetallcategoryQuery();
   const { data: Products } = useGetallproductQuery();
+
+  console.log("category,,,,,,,,,,,,,",category?.category);
+  console.log("product,,,,,,,,,,,,,",Products?.Products);
+  
 
   return (
     <>

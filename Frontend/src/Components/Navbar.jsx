@@ -1,15 +1,17 @@
 import React, { useEffect } from 'react'
 import { Link, Navigate } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useGetMeQuery } from '../redux/Api/authApi'
 import { useLazyLogoutQuery } from '../redux/Api/authApi'
 import { useNavigate } from 'react-router-dom';
+import { orderDataApi } from '../redux/Api/orderDataApi';
+
 
 const Navbar = () => {
 
   const { data,isLoading } = useGetMeQuery()
   const navigate = useNavigate()
-
+  const dispatch = useDispatch()
 
   const [logout] = useLazyLogoutQuery()
   
@@ -19,6 +21,7 @@ const Navbar = () => {
   
 
   const handleLogout = async () => {
+    dispatch(orderDataApi.util.resetApiState());
     navigate("/")
    await logout();
   }

@@ -4,12 +4,15 @@ import { Link, Navigate } from 'react-router-dom'
 import { useLoginMutation } from '../redux/Api/authApi';
 import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { orderDataApi } from '../redux/Api/orderDataApi';
+
 
 const Login = () => {
   const {isAuthenticated} = useSelector((v)=>v.auth)
   const [login, { isLoading }] = useLoginMutation()
   const navigate = useNavigate()
+  const dispatch = useDispatch()
   const [apiMsg, setApiMsg] = useState("")
 
   const { handleChange, handleSubmit, values, handleBlur, touched, errors } = useFormik({
@@ -24,6 +27,8 @@ const Login = () => {
     onSubmit: async (values) => {
       const user = await login(values).unwrap()      
       setApiMsg(user)
+        dispatch(orderDataApi.util.resetApiState());
+
       user.success == true && navigate ("/")
     },
   });

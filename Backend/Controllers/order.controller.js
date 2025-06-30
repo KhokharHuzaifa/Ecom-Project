@@ -1,21 +1,14 @@
 import { OrderModel } from "../Model/orderDetail.model.js";
 
-export const orderDetail = async (req,res,next) => {
-
-    console.log("Inside orderDetails.................");
-    console.log("Inside orderDetails.................",req.user);
-    
+export const orderDetail = async (req,res,next) => {   
 
     try {
 
         const {id} = req.user
-console.log("User Id...............",id);
 
-        const orderList = await OrderModel.find()
-
-
-
-        console.log("Order Data: ", orderList);
+        const orderList = await OrderModel.find({userId:id})  
+        
+        console.log("orderlist",orderList);
         
 
         res.json({
